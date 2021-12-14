@@ -4,9 +4,10 @@ import { currencyAPI } from "../services/CurrencyService";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import settings from "../settings";
+import CurrencyInput from "../components/CurrencyInput";
 
 
-const HomePage = () => {
+const ComparisonPage = () => {
 
   // var prepareDte = 
 
@@ -17,6 +18,11 @@ const HomePage = () => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+
+  const handleSelectCurrency = (e) => {
+    const selectValue = e.target.value;
+    setBaseCurrency({ code: selectValue })
+}
 
 
   return (
@@ -40,8 +46,6 @@ const HomePage = () => {
         }}
         >
 
-          {/* <h1>History Page</h1> */}
-
           <div className="container" style={{
             display: "contants",
             // alignItems: "flex-center",
@@ -52,58 +56,40 @@ const HomePage = () => {
 
 
             <div className=" d-flex justify-content-center " style={{ flexWrap: "inherit" }}>
-              <select className="form-select me-2" id="inputGroupSelect04" aria-label="Example select with button addon"
-                value={baseCurrency.code}
-                defaultValue={'DEFAULT'}
-                onChange={(e) => {
-                  e.preventDefault();
-                  const selectValue = e.target.value;
-                  // setSelectedCurrency(selectValue)
-                  setBaseCurrency({ code: selectValue })
-                }}
-              >
-                <option value="DEFAULT" selected>Choose...</option>
-                {data && Object.keys(data.rates)
-                  .map(x => ({ currency: x, rate: data.rates[x] }))
-                  .filter(x => settings.currencyList.includes(x.currency))
-                  .filter(x => x.currency != data.base)
-                  .map(rate =>
-                    <option key={rate.currency} value={rate.currency} >{rate.currency}</option>
-                  )}
-              </select>
+              <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code}/>
+              
               {/* {isLoadingDate && <h1>Loading date...</h1>}
           {errorDate && <h1>Error date download...</h1>} */}
 
               <DatePicker className=" me-2 p-1 " selected={startDate} onChange={(date) => setStartDate(date)} />
               {endDateisLoading && <h1>Loading end date...</h1>}
-          {endDateError && <h1>Error end date download...</h1>}
+              {endDateError && <h1>Error end date download...</h1>}
               <DatePicker className=" me-2 p-1 mw-auto" selected={endDate} onChange={(date) => setEndDate(date)} />
 
               <button className="btn btn-outline-primary  " type="button" >Quantify</button>
             </div>
           </div>
-
+          {isLoading && <h1>Loading...</h1>}
+            {error && <h1>Error download...</h1>}
           <table className="table"
             style={{ alignItems: "flex-center", paddingLeft: "2.2em", alignContent: "center", margin: "auto", textAlign: "center" }}
-            id="table"
-            data-toggle="table"
-            data-height="460"
-            data-toolbar="#toolbar"
-            data-show-refresh="true"
-            data-show-toggle="true"
-            data-show-columns="true"
-            data-query-params="queryParams"
-            data-response-handler="responseHandler"
-            data-url="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data"
+            // id="table"
+            // data-toggle="table"
+            // data-height="460"
+            // data-toolbar="#toolbar"
+            // data-show-refresh="true"
+            // data-show-toggle="true"
+            // data-show-columns="true"
+            // data-query-params="queryParams"
+            // data-response-handler="responseHandler"
+            // data-url="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data"
           >
-            {isLoading && <h1>Loading...</h1>}
-            {error && <h1>Error download...</h1>}
             <thead>
               <tr>
-                <th data-field="Currency">Currency</th>
-                <th data-field="First Date">First Date</th>
-                <th data-field="Second Date">Second Date</th>
-                <th data-field="difference">Difference</th>
+                <th >Currency</th>
+                <th >First Date</th>
+                <th >Second Date</th>
+                <th >Difference</th>
               </tr>
             </thead>
             <tbody>
@@ -112,14 +98,11 @@ const HomePage = () => {
                 .filter(x => settings.currencyList.includes(x.currency))
                 .filter(x => x.currency != data.base)
                 .map(rate =>
-                  <tr >
-
+                  <tr key={rate.currency}>
                     <td>{rate.currency}</td>
                     <td>30.12</td>
                     <td>30.44</td>
                     <td>+0.32</td>
-
-
                     {/* <td>{setStartDate}</td> */}
                     {/* <td>{amount}</td> */}
                     {/* <td>{amount}*</td> */}
@@ -141,4 +124,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ComparisonPage;

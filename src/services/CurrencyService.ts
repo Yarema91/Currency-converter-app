@@ -14,9 +14,7 @@ export const currencyAPI = createApi({
                 params: {
                     base: baseCurrency
                 }
-            
             }),
-
         }),
         fetchChangeDate: build.query<any, ChangDateArgs>({
             query: (changDateArgs: ChangDateArgs) => ({

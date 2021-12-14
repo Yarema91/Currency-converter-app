@@ -25,7 +25,11 @@ var defaltHistory = [
 //     }
 // }
 
-const CurrencyContainer: React.FC = () => {
+// type props = {
+//     onChange1: ({currency: string, amount: string  }) => void
+// }
+
+const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
 
     const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
 
@@ -44,8 +48,6 @@ const CurrencyContainer: React.FC = () => {
     // console.log(parsedHistory);
 
     useEffect(() => {
-        
-        
         if (history) {
             try {
             localStorage.setItem('history', JSON.stringify(history)); 
@@ -65,31 +67,32 @@ const CurrencyContainer: React.FC = () => {
     const onChangeAmount = (e) => {
 
         let exchangeRate = e.target.value;
-
         setAmount(exchangeRate); //
-
         console.log('exchangeRate', exchangeRate);
 
         timeoutId && clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
 
             if (amount !== 1) {
-                setHistory([
-                    ...history,
-                    {
-                        id: history.length + 1,
-                        currency: baseCurrency.code,
-                        amount: exchangeRate.trim(),
-                        date:  data.date
-                    } 
-                ]);
+                onChange1({
+                    currency: baseCurrency.code,
+                        amount: exchangeRate,
+            })
+                // setHistory([
+                //     ...history,
+                //     {
+                //         id: history.length + 1,
+                //         currency: baseCurrency.code,
+                //         amount: exchangeRate.trim(),
+                //         date:  data.date
+                //     } 
+                // ]);
             }
             //  setHistory([...history, amount]);
             // localStorage.setItem('exchangeRate', JSON.stringify(exchangeRate))
             // console.log(history);
             // setAmount(1)
             console.log('hello');
-
         }, 3000)
     }
 
@@ -111,28 +114,28 @@ const CurrencyContainer: React.FC = () => {
                         value={amount} onChange={onChangeAmount} />
                 </div>
             </div>
-
+                {isLoading && <h1>Loading...</h1>}
+                {error && <h1>Error download...</h1>}
             <table className="table"
                 style={{ alignItems: "flex-center", paddingLeft: "2.2em", alignContent: "center", margin: "auto", textAlign: "center" }}
                 id="table"
-                data-toggle="table"
-                data-height="460"
-                data-toolbar="#toolbar"
-                data-show-refresh="true"
-                data-show-toggle="true"
-                data-show-columns="true"
-                data-query-params="queryParams"
-                data-response-handler="responseHandler"
-                data-url="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data"
+                // data-toggle="table"
+                // data-height="460"
+                // data-toolbar="#toolbar"
+                // data-show-refresh="true"
+                // data-show-toggle="true"
+                // data-show-columns="true"
+                // data-query-params="queryParams"
+                // data-response-handler="responseHandler"
+                // data-url="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data"
             >
-                {isLoading && <h1>Loading...</h1>}
-                {error && <h1>Error download...</h1>}
+                
                 <thead>
                     <tr>
-                        <th data-field="Currency">Currency</th>
-                        <th data-field="Rates">Rates</th>
+                        <th >Currency</th>
+                        <th >Rates</th>
                         {/* <th data-field="Amount">Amount</th> */}
-                        <th data-field="Result">Result</th>
+                        <th >Result</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -140,8 +143,8 @@ const CurrencyContainer: React.FC = () => {
                         .map(x => ({ currency: x, rate: data.rates[x] }))
                         .filter(x => settings.currencyList.includes(x.currency))
                         .filter(x => x.currency != data.base)
-                        .map(rate =>
-                            <tr>
+                       .map(rate =>
+                            <tr key={rate.currency}>
                                 <td>{rate.currency}</td>
                                 <td>{rate.rate}</td>
                                 {/* <td>{amount}</td> */}
@@ -153,7 +156,7 @@ const CurrencyContainer: React.FC = () => {
             </table>
 
 
-            <Card className=" col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em" }}>
+            {/* <Card className=" col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em" }}>
                 <table className="table table-borderless"
                     style={{ alignItems: "flex-center", padding: "2.2em", alignContent: "center", }}
                     id="table"
@@ -182,7 +185,7 @@ const CurrencyContainer: React.FC = () => {
                         ))}
                     </tbody>
                 </table>
-            </Card>
+            </Card> */}
 
             {/*
              <nav aria-label="Page navigation example" style={{
