@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from 'react';
-import { Navbar, Nav, Container, Form, FormControl, Button } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
+// import { Navbar, Nav, Container, Form, FormControl, Button } from 'react-bootstrap';
+// import { useForm } from 'react-hook-form';
 import { Link, NavLink } from 'react-router-dom';
-import { isJSDocVariadicType } from 'typescript';
-import { IProject } from '../models/IProject';
-import { projectAPI } from '../services/ProductsService';
+// import { isJSDocVariadicType } from 'typescript';
+// import { IProject } from '../models/IProject';
+// import { projectAPI } from '../services/ProductsService';
 
-import projectSlice from '../components/project/projectSlice';
-import CurrencyField from '../components/CurrencyField';
+// import projectSlice from '../components/project/projectSlice';
+// import CurrencyField from '../components/CurrencyField';
 import { ICurrency } from '../models/ICurrency';
 
 
@@ -21,51 +21,7 @@ type FieldName = "title" | "body" | "imageUrl";
 
 const Header = () => {
 
-  const [createProject, { error: CreateError, isLoading: CreateIsLoading }] = projectAPI.useCreateProjectMutation()
-
-  // Form =>
-  const [projectInput, setProjectInput] = useState<{ title: string, body: string, imageUrl: string }>(defaultFormValues);
-  const [isDirty, setIsDirty] = useState<{ [id: string]: boolean }>({ title: false });
-
-
-  const validationState: { [id: string]: { isInvalid: boolean, message: string }[] } = {
-    "title": [
-      { isInvalid: projectInput.title === "", message: "Title can not be empty" },
-      { isInvalid: (projectInput.title !== "") && projectInput.title?.length < 3, message: "Title is too short" },
-    ],
-    "body": [
-      { isInvalid: projectInput.body === "", message: "Body can not be empty" },
-    ]
-  };
-
-  const getFieldValidation = (fieldName: FieldName) => {
-    const result = validationState[fieldName];
-    var isInvalid = result.map(x => x.isInvalid).some(x => x);
-    var messages = result.filter(x => x.isInvalid).map(x => x.message);
-    return {
-      isInvalid: isInvalid,
-      messages
-    }
-  };
-
-  const getFormIsValid = () => {
-    return !getFieldValidation("title").isInvalid &&
-      !getFieldValidation("body").isInvalid;
-  };
-
-  const handleCreate1 = async () => {
-    const title = projectInput.title;
-    const body = projectInput.body;
-
-    if (!getFormIsValid()) {
-      (
-        <h1>Input empty...</h1>
-      )
-    } else {
-      await createProject({ title, imageUrl: "https://source.unsplash.com/1600x900/?project-art", body, status: "draft" } as IProject);
-      setProjectInput(defaultFormValues);
-    }
-  }
+  
 
   return (
 

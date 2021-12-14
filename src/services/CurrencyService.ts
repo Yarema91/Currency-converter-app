@@ -2,6 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { ICurrency } from "../models/ICurrency";
 
+type ChangDateArgs = {baseCurrency: string, changeDate: string};
 export const currencyAPI = createApi({
 
     reducerPath: 'currencyAPI',
@@ -17,11 +18,11 @@ export const currencyAPI = createApi({
             }),
 
         }),
-        fetchChangeDate: build.query<any, string>({
-            query: (changeDate) => ({
-                url: `/date=${changeDate}`,
+        fetchChangeDate: build.query<any, ChangDateArgs>({
+            query: (changDateArgs: ChangDateArgs) => ({
+                url: `/${changDateArgs.changeDate}`,
                 params: {
-                    date: changeDate
+                    base: changDateArgs.baseCurrency
                 }
             }),
         }),

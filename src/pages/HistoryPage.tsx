@@ -4,24 +4,29 @@ import { Card } from "react-bootstrap";
 import { currencyAPI } from "../services/CurrencyService";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
+import settings from "../settings";
+import CurrencyInput from "../components/CurrencyInput";
 
 
 
 const HistoryPage = () => {
-    let filterCurrency = ['EUR', 'USD', 'UAH', 'CAD', 'CHF', 'PLN', 'JPY', 'CZK'];
+    // let filterCurrency = ['EUR', 'USD', 'UAH', 'CAD', 'CHF', 'PLN', 'JPY', 'CZK'];
 
-    const [baseCurrency, setBaseCurrency] = useState<string>('');
+    const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
 
-    const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(baseCurrency);
-    // const [ data: changeDate, {error: errorDate, isLoading: isLoadingDate} ] = currencyAPI.useFetchChangeDateQuery<any>();
+    // const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(baseCurrency);
+    const { data, error, isLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: '2021-12-09' });
 
     const [changeDate, setChangeDate] = useState();
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
-
     // console.log('date', data.date);
 
+    const handleSelectCurrency = (e) => {
+        const selectValue = e.target.value;
+        setBaseCurrency({ code: selectValue })
+}
 
     return (
         // <div className="container"
@@ -65,14 +70,14 @@ const HistoryPage = () => {
 
 
                         <div className=" d-flex justify-content-center " style={{ flexWrap: "inherit" }}>
-                            <select className="form-select me-2" id="inputGroupSelect04" aria-label="Example select with button addon"
-                                value={baseCurrency}
+                            {/* <select className="form-select me-2" id="inputGroupSelect04" aria-label="Example select with button addon"
+                                value={baseCurrency.code}
                                 defaultValue={'DEFAULT'}
                                 onChange={(e) => {
                                     e.preventDefault();
                                     const selectValue = e.target.value;
                                     // setSelectedCurrency(selectValue)
-                                    setBaseCurrency(selectValue)
+                                    setBaseCurrency({code: selectValue})
                                 }}
                             >
                                 <option value="DEFAULT" selected>Choose...</option>
@@ -83,29 +88,14 @@ const HistoryPage = () => {
                                     .map(rate =>
                                         <option key={rate.currency} value={rate.currency} >{rate.currency}</option>
                                     )}
-                            </select>
-                            <input type="number" className="form-control me-2" aria-label="Text input with segmented dropdown button" />
-                            <select className="form-select me-2" id="inputGroupSelect04" aria-label="Example select with button addon"
-                                value={baseCurrency}
-                                defaultValue={'DEFAULT'}
-                                onChange={(e) => {
-                                    e.preventDefault();
-                                    const selectValue = e.target.value;
-                                    // setSelectedCurrency(selectValue)
-                                    setBaseCurrency(selectValue)
-                                }}
-                            >
-                                <option value="DEFAULT" selected>Choose...</option>
-                                {data && Object.keys(data.rates)
-                                    .map(x => ({ currency: x, rate: data.rates[x] }))
-                                    .filter(x => filterCurrency.includes(x.currency))
-                                    .filter(x => x.currency != data.base)
-                                    .map(rate =>
-                                        <option key={rate.currency} value={rate.currency} >{rate.currency}</option>
-                                    )}
-                            </select>
+                            </select> */}
+                            <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code}/>
 
-                            <button className="btn btn-outline-primary " type="button" >Quantify</button>
+                            <input type="number" className="form-control me-2" aria-label="Text input with segmented dropdown button" />
+
+                            <DatePicker className=" me-2 p-1 " selected={startDate} onChange={(date) => setStartDate(date)} />
+
+                            {/* <button className="btn btn-outline-primary " type="button" >Quantify</button> */}
                         </div>
                     </div>
 
@@ -127,36 +117,34 @@ const HistoryPage = () => {
                         <thead>
                             <tr>
                                 {/* <th data-field="id">#</th> */}
-                                <th data-field="Date">Date</th>
+                                <th data-field="Currency">Currency</th>
+                                
+                    
                                 <th data-field="Rates">Rates </th>
                                 {/* <th data-field="Second Date">Second Date</th> */}
                                 <th data-field="Total">Total</th>
+                                <th data-field="Date">Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             {data && Object.keys(data.rates)
                                 .map(x => ({ currency: x, rate: data.rates[x] }))
-                                .filter(x => filterCurrency.includes(x.currency))
+                                .filter(x => settings.currencyList.includes(x.currency))
                                 .filter(x => x.currency = data.base)
                                 .map(rate =>
-                                    <tr >
-
-                                        {/* <td>1</td> */}
+                                    <tr>
                                         {/* <td>{d.setMonth(d.getMonth() + 1);
                                         while (d.getMonth() === month) {
                                                 d.setDate(d.getDate() - 1) }}
                                                 </td> */}
-                                               
-                                        <td>{data.date}</td>
+                                         <td>{rate.currency}</td>
+                                     
                                         <td>{rate.rate}</td>
-
-                                        {/* <td>{amount}</td> */}
-                                        {/* <td>{amount}*</td> */}
-
                                         <td>{(rate.rate * 10).toLocaleString('en-US', {
                                             style: 'currency',
                                             currency: rate.currency,
                                         })}</td>
+                                           <td>{data.date}</td>
 
                                         {/* <td>{(rate.rate * 10).toFixed(2)}</td> */}
                                     </tr>

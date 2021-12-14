@@ -1,6 +1,6 @@
 import React from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { decrease, increase } from "../components/counter/counterSlice";
+// import { decrease, increase } from "../components/counter/counterSlice";
 import { useAppSelector } from "../hooks/redux";
 import CurrencyContainer from "../components/CurrencyContainer";
 

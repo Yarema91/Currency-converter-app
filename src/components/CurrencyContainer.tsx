@@ -1,52 +1,97 @@
-import { randomBytes } from "crypto";
-import React, { useState } from "react";
+// import { randomBytes } from "crypto";
+import React, { useEffect, useState } from "react";
+import { Card } from "react-bootstrap";
 import { currencyAPI } from "../services/CurrencyService";
+import settings from "../settings";
+import CurrencyInput from "./CurrencyInput";
+import { useLocalStorage } from "./useLocalStorage";
 
 
+var timeoutId;
 
+var defaltHistory = [
+    { 'currency': 'USD', 'amount': 100 },
+    { 'currency': 'UAH', 'amount': 20 },
+];
 
-const CurrencyContainer = () => {
+// const getLocalStorage = () => {
+//     let list = localStorage.getItem('lists')
+//     console.log(list);
 
-    let filterCurrency = ['EUR', 'USD', 'UAH', 'CAD', 'CHF', 'PLN', 'JPY', 'CZK'];
+//     if(list){
+//         return JSON.parse(localStorage.getItem('lists') || "")
+//     } else {
+//         return [];
+//     }
+// }
 
-    const [baseCurrency, setBaseCurrency] = useState<{code: string}>({code: 'USD'});
+const CurrencyContainer: React.FC = () => {
+
+    const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
 
     const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(baseCurrency.code);
-    const [amount, setAmount] = useState(1 as number) ;
-    // const [selectedCurrency, setSelectedCurrency] = useState('');
 
-    // console.log('baseCurrency', baseCurrency);
+    const [amount, setAmount] = useState(1 as any); //1
 
+    const persistedHistory = localStorage.getItem('history') as any;
+    const parsedHistory = JSON.parse(persistedHistory );
 
-    // const onChangeCurrency = obj => {
-    //     setBaseCurrency('EUR');
-    //     // const searchWord = event.target.value;
-    //     // setSelectedCurrency(searchWord);
-    //     setSelectedCurrency(obj); 
+    const [history, setHistory] = useState(parsedHistory  || [] as any); // defaltHistory
 
-    //     console.log("click select");
-    //     console.log("data.base", data.base);
-    //     // console.log('selectedCurrency', selectedCurrency());
+    // localStorage.setItem('defaltHistory', JSON.stringify(defaltHistory));
+    // const persistedHistory = localStorage.getItem('defaltHistory') as any;
+    // const parsedHistory = JSON.parse(persistedHistory);
+    // console.log(parsedHistory);
 
-    //     // || "DEFAULT" 
-    //     // let currentValue = rate.currency;
-    //     // setbaseCurrency(currentValue);
-    // }
-
-    const onChangeAmount = (e) => {
-        console.log("convert");
-       
-        let exchangeRate =  e.target.value;
-        setAmount(exchangeRate);
-        console.log('exchangeRate', exchangeRate);
-
-        // const convert = data.rate * exchangeRate;
-        // console.log('convert', convert);
-       
+    useEffect(() => {
         
+        
+        if (history) {
+            try {
+            localStorage.setItem('history', JSON.stringify(history)); 
+            } catch (err) {
+              console.log(err);
+            }
+          }
+    }, [history])
+
+
+    const handleSelectCurrency = (e) => {
+        const selectValue = e.target.value;
+        setBaseCurrency({ code: selectValue })
     }
 
-    // console.log('baseCurrency2', baseCurrency);
+
+    const onChangeAmount = (e) => {
+
+        let exchangeRate = e.target.value;
+
+        setAmount(exchangeRate); //
+
+        console.log('exchangeRate', exchangeRate);
+
+        timeoutId && clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+
+            if (amount !== 1) {
+                setHistory([
+                    ...history,
+                    {
+                        id: history.length + 1,
+                        currency: baseCurrency.code,
+                        amount: exchangeRate.trim(),
+                        date:  data.date
+                    } 
+                ]);
+            }
+            //  setHistory([...history, amount]);
+            // localStorage.setItem('exchangeRate', JSON.stringify(exchangeRate))
+            // console.log(history);
+            // setAmount(1)
+            console.log('hello');
+
+        }, 3000)
+    }
 
     return (
         <div>
@@ -57,53 +102,13 @@ const CurrencyContainer = () => {
                 paddingBlockEnd: "2.2em",
             }}
             >
-                {/* <select
-                    value={baseCurrency}
-                    defaultValue={'DEFAULT'}
-                    onChange={(e) => {
-                        e.preventDefault();
-                        const selectValue = e.target.value;
-                        // setSelectedCurrency(selectValue)
-                        setBaseCurrency(selectValue)
-                    }}
-                >
-                    <option value="steak">Steak</option>
-                    <option value="sandwich">Sandwich</option>
-                    <option value="dumpling">Dumpling</option>
-                    {data && Object.keys(data.rates)
-                            .map(x => ({ currency: x, rate: data.rates[x] }))
-                            .filter(x => filterCurrency.includes(x.currency))
-                            .filter(x => x.currency != data.base)
-                            .map(rate =>
-                                <option key={rate.currency} value={rate.currency} >{rate.currency}</option>
-                            )}
-                </select>
-                {baseCurrency} */}
-                
-                <div className="input-group">
-                    <select className="form-select"  
-                        value={baseCurrency.code}
-                        // defaultValue={'DEFAULT'}
-                        onChange={(e) => {
-                            // e.preventDefault();
-                            const selectValue = e.target.value;
-                            // setSelectedCurrency(selectValue)
-                            setBaseCurrency({code: selectValue})
-                        }}
-                    >
-                        {/* <option value="DEFAULT" >Choose...</option> */}
-                        {data && Object.keys(data.rates)
-                            .map(x => ({ currency: x, rate: data.rates[x] }))
-                            .filter(x => filterCurrency.includes(x.currency))
-                            .filter(x => x.currency != data.base)
-                            .map(rate =>
-                                <option  value={rate.currency} selected={baseCurrency.code === rate.currency}>{rate.currency}</option>
-                            )}
-                    </select>
+                <div className=" d-flex justify-content-center " style={{ flexWrap: "inherit" }}>
+                    
+                    <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code} />
 
-                    <input type="number" className="form-control" aria-label="Text input with segmented dropdown button"  
-                    value={amount} onChange={onChangeAmount}/>
-                    <button className="btn btn-outline-primary " type="button" >Convert</button>
+                    <input type="number" min={1}
+                        className="form-control" aria-label="Text input with segmented dropdown button"
+                        value={amount} onChange={onChangeAmount} />
                 </div>
             </div>
 
@@ -126,27 +131,58 @@ const CurrencyContainer = () => {
                     <tr>
                         <th data-field="Currency">Currency</th>
                         <th data-field="Rates">Rates</th>
-                        <th data-field="Amount">Amount</th>
+                        {/* <th data-field="Amount">Amount</th> */}
                         <th data-field="Result">Result</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data && Object.keys(data.rates)
-                        .map(x => ({ currency: x, rate: data.rates[x]  }))
-                        .filter(x => filterCurrency.includes(x.currency))
+                        .map(x => ({ currency: x, rate: data.rates[x] }))
+                        .filter(x => settings.currencyList.includes(x.currency))
                         .filter(x => x.currency != data.base)
                         .map(rate =>
-                            <tr >
-
+                            <tr>
                                 <td>{rate.currency}</td>
                                 <td>{rate.rate}</td>
-                                <td>{amount}</td>
+                                {/* <td>{amount}</td> */}
                                 {/* <td>{setAmount}</td> */}
-                                {/* <td>{rate.rate * {amount} }</td> */}
+                                <td>{(rate.rate * (amount < 0 ? 0 : amount)).toFixed(2)}</td>
                             </tr>
                         )}
                 </tbody>
             </table>
+
+
+            <Card className=" col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em" }}>
+                <table className="table table-borderless"
+                    style={{ alignItems: "flex-center", padding: "2.2em", alignContent: "center", }}
+                    id="table"
+                    data-toggle="table"
+                    data-height="460"
+                    data-url="json/data1.json">
+                    <thead>
+                        <tr >
+                            <th data-field="name">#</th>
+                            <th data-field="price">Currency</th>
+                            <th data-field="price">Amount</th>
+                            <th data-field="date">Date</th>
+                            <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody style={{ textAlign: "center" }}>
+
+                        {history.map((h) => (
+                            <tr key={h.id}>
+                                <td>{h.id}</td>
+                                <td>{h.currency}</td>
+                                <td>{h.amount}</td>
+                                <td>{h.date}</td>
+
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </Card>
 
             {/*
              <nav aria-label="Page navigation example" style={{

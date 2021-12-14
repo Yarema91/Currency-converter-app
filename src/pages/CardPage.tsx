@@ -3,7 +3,7 @@ import React from "react";
 import { IProject } from "../models/IProject";
 import { useParams } from 'react-router-dom';
 import { projectAPI } from "../services/ProductsService";
-import ProjectDetails from "../components/project/ProjectDetails";
+// import ProjectDetails from "../components/project/ProjectDetails";
 
 
 
@@ -58,8 +58,8 @@ const CardPage: React.FC<CardPage> = () => {
             {DeleteIsLoading && <h1>Loading Delete project...</h1>}
             {UpdateError && <h1>Error update...</h1>}
             {UpdateIsLoading && <h1>Loading update project...</h1>}
-            {(project) ? <ProjectDetails project={project} update={handleUpdate} remove={handleRemove}
-            /> : erroeMassege()}
+            {/* {(project) ? <ProjectDetails project={project} update={handleUpdate} remove={handleRemove}
+            /> : erroeMassege()} */}
         </div>
     )
 }
