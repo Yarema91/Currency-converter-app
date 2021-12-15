@@ -129,7 +129,6 @@ const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
                 // data-response-handler="responseHandler"
                 // data-url="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data"
             >
-                
                 <thead>
                     <tr>
                         <th >Currency</th>

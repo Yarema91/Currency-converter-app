@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
 import CurrencyContainer from "../components/CurrencyContainer";
+import * as moment from 'moment/moment.js';
 
 
 const ConversionPage = () => {
-  
+
+
   const persistedHistory = localStorage.getItem('history') as any;
-  const parsedHistory = JSON.parse(persistedHistory || []);
- const [history, setHistory] = useState(parsedHistory)
+  const parsedHistory = JSON.parse(persistedHistory);
+  const [history, setHistory] = useState(parsedHistory || [])
+
 
   // const value = useAppSelector(state => state.counterReducer.value);
   // const dispatch = useDispatch();
@@ -17,18 +20,34 @@ const ConversionPage = () => {
   //   useEffect(() => {
   //     localStorage.setItem('history', JSON.stringify(history));    
   // }, [history])
-  
+
+  useEffect(() => {
+    if (history) {
+      try {
+        localStorage.setItem('history', JSON.stringify(history));
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [history])
+
+  var date = new Date();
+  var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+    .toISOString()
+    .split("T")[0];
+  console.log(dateString);
+
   const onChangeAmount = (rate) => {
 
     setHistory([
-          ...history,
-          {
-              id: history.length + 1,
-              currency: rate.currency,
-              amount: rate.amount,
-              date:  Date()
-          } 
-      ]);
+      ...history,
+      {
+        id: history.length + 1,
+        currency: rate.currency,
+        amount: rate.amount,
+        date: dateString
+      }
+    ]);
 
     console.log('click local');
   }
@@ -50,30 +69,31 @@ const ConversionPage = () => {
       <Card className=" col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em" }}>
         <table className="table table-borderless"
           style={{ alignItems: "flex-center", padding: "2.2em", alignContent: "center", }}
-          // id="table"
-          // data-toggle="table"
-          // data-height="460"
-          // data-url="json/data1.json"
-          >
+        // id="table"
+        // data-toggle="table"
+        // data-height="460"
+        // data-url="json/data1.json"
+        >
           <thead>
             <tr >
               <th >#</th>
               <th >Currency</th>
               <th >Amount</th>
               <th >Date</th>
-              <th >Delete</th>
+              {/* <th >Delete</th> */}
             </tr>
           </thead>
           <tbody style={{ textAlign: "center" }}>
-            
+
             {history.map((h) => (
-                            <tr key={h.id}>
-                                <td>{h.id}</td>
-                                <td>{h.currency}</td>
-                                <td>{h.amount}</td>
-                                <td>{h.date}</td>
-                            </tr>
-                        ))}
+              <tr key={h.id}>
+                <td>{h.id}</td>
+                <td>{h.currency}</td>
+                {/* <td>{h.rate}</td> */}
+                <td>{h.amount}</td>
+                <td>{h.date}</td>
+              </tr>
+            ))}
             {/* <tr>
               <th scope="row">{row => row.next() }</th>
               <td>USD</td>
@@ -91,3 +111,7 @@ const ConversionPage = () => {
 };
 
 export default ConversionPage;
+function dateFormat() {
+  throw new Error("Function not implemented.");
+}
+

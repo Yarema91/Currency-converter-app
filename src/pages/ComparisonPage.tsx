@@ -13,17 +13,33 @@ const ComparisonPage = () => {
 
   const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
 
-  const { data, error, isLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: '2021-12-09' });
-  const { dataEndDate, error: endDateError, isLoading: endDateisLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: '2021-12-05' });
+  const [changeDate, setChangeDate] = useState();
 
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());  //view change date1
+  const startDateForRecquest = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate() - 1}`
+  const { data, error, isLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
+
+
+  const { dataEnd, error: endDateError, isLoading: endDateisLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
   const [endDate, setEndDate] = useState(new Date());
+  // const [amount, setAmount] = useState(1 as any); 
+
+  console.log('endDate', endDate);
+  console.log('endDate', endDate);
+
+
 
   const handleSelectCurrency = (e) => {
     const selectValue = e.target.value;
     setBaseCurrency({ code: selectValue })
-}
+  }
 
+  const onChangeDate = (e) => {
+    let exchangeDate = e.target.value;
+    setStartDate(exchangeDate)
+
+    console.log('click date');
+  }
 
   return (
 
@@ -56,11 +72,10 @@ const ComparisonPage = () => {
 
 
             <div className=" d-flex justify-content-center " style={{ flexWrap: "inherit" }}>
-              <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code}/>
-              
-              {/* {isLoadingDate && <h1>Loading date...</h1>}
-          {errorDate && <h1>Error date download...</h1>} */}
+              <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code} />
 
+              {/* {isLoadingDate && <h1>Loading date...</h1>}
+              {errorDate && <h1>Error date download...</h1>} */}
               <DatePicker className=" me-2 p-1 " selected={startDate} onChange={(date) => setStartDate(date)} />
               {endDateisLoading && <h1>Loading end date...</h1>}
               {endDateError && <h1>Error end date download...</h1>}
@@ -70,19 +85,9 @@ const ComparisonPage = () => {
             </div>
           </div>
           {isLoading && <h1>Loading...</h1>}
-            {error && <h1>Error download...</h1>}
+          {error && <h1>Error download...</h1>}
           <table className="table"
             style={{ alignItems: "flex-center", paddingLeft: "2.2em", alignContent: "center", margin: "auto", textAlign: "center" }}
-            // id="table"
-            // data-toggle="table"
-            // data-height="460"
-            // data-toolbar="#toolbar"
-            // data-show-refresh="true"
-            // data-show-toggle="true"
-            // data-show-columns="true"
-            // data-query-params="queryParams"
-            // data-response-handler="responseHandler"
-            // data-url="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data"
           >
             <thead>
               <tr>
@@ -100,24 +105,24 @@ const ComparisonPage = () => {
                 .map(rate =>
                   <tr key={rate.currency}>
                     <td>{rate.currency}</td>
-                    <td>30.12</td>
-                    <td>30.44</td>
-                    <td>+0.32</td>
-                    {/* <td>{setStartDate}</td> */}
-                    {/* <td>{amount}</td> */}
-                    {/* <td>{amount}*</td> */}
+                    <td>{rate.rate}</td>
+                    {/* <td>+0.32</td> */}
                   </tr>
                 )}
+              {dataEnd && Object.keys(dataEnd.rates)
+                .map(x => ({ currency: x, rate2: dataEnd.rates[x] }))
+                .filter(x => settings.currencyList.includes(x.currency))
+                .filter(x => x.currency != data.base)
+                .map(rate =>
+                  <tr key={rate.rate2}>
+
+                    <td>{rate.rate2}</td>
+                    <td>+0.32</td>
+                  </tr>
+                )}
+
             </tbody>
           </table>
-          {/* {error && <h1>Error find...</h1>}
-      {isLoading && <h1>Loading find by id project...</h1>}
-      {DeleteError && <h1>Error delete...</h1>}
-      {DeleteIsLoading && <h1>Loading Delete project...</h1>}
-      {UpdateError && <h1>Error update...</h1>}
-      {UpdateIsLoading && <h1>Loading update project...</h1>}
-      {(project) ? <ProjectDetails project={project} update={handleUpdate} remove={handleRemove}
-      /> : erroeMassege()} */}
         </div>
       </Card>
     </div>
