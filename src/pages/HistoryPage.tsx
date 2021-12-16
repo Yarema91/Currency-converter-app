@@ -110,29 +110,8 @@ const HistoryPage = () => {
                                 <th >Date</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {/* {data && Object.keys(data.rates)
-                                .map(x => ({ currency: x, rate: data.rates[x] }))
-                                .filter(x => settings.currencyList.includes(x.currency))
-                                .filter(x => x.currency = data.base)
-                                .map(rate =>
-                                    <tr> */}
-                            {/* <td>{d.setMonth(d.getMonth() + 1);
-                                        while (d.getMonth() === month) {
-                                                d.setDate(d.getDate() - 1) }}
-                                                </td> */}
-                            {/* <td>{rate.currency}</td>
-
-                                        <td>{rate.rate}</td>
-                                        <td>{(rate.rate * 10).toLocaleString('en-US', {
-                                            style: 'currency',
-                                            currency: rate.currency,
-                                        })}</td>
-                                        <td>{data.date}</td> */}
-
-                            {/* <td>{(rate.rate * 10).toFixed(2)}</td> */}
-                            {/* </tr>
-                                )} */}
+                        <tbody >
+                            
                             {data && Object.keys(data.rates)
                                 .map(x => ({ currency: x, rate: data.rates[x] }))
                                 .filter(x => settings.currencyList.includes(x.currency))

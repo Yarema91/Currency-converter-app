@@ -12,15 +12,6 @@ const ConversionPage = () => {
   const parsedHistory = JSON.parse(persistedHistory);
   const [history, setHistory] = useState(parsedHistory || [])
 
-
-  // const value = useAppSelector(state => state.counterReducer.value);
-  // const dispatch = useDispatch();
-
-  //   
-  //   useEffect(() => {
-  //     localStorage.setItem('history', JSON.stringify(history));    
-  // }, [history])
-
   useEffect(() => {
     if (history) {
       try {
