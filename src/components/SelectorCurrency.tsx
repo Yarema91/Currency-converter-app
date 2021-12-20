@@ -14,16 +14,12 @@ let options = [
 export default function App() {
 
   const [options, setOptions] = useState([] || null) as any;
-
   const [selectedOption, setSelectedOption] = useState([] || null) as any;
 
   // const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
 
   const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(selectedOption);
 
-
-    
-  
   //1. Викликати дані
   //2. вісортувати по ключу
   // 3. наповнити щзешщті currency 
@@ -31,7 +27,7 @@ export default function App() {
   //4. створити локал сторадж, записувти активні із генерацією кольору
   //5. викликати локалсторедж у інших компонентах
 
-  console.log('data', data);
+  // console.log('data', data);
 
   const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
   const r = randomBetween(0, 255);

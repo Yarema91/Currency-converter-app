@@ -1,11 +1,9 @@
 import { combineReducers, configureStore, getDefaultMiddleware }  from "@reduxjs/toolkit";
-
 import { currencyAPI } from "../services/CurrencyService";
 
 
 const rootReducer = combineReducers({
 
-   
     [currencyAPI.reducerPath]: currencyAPI.reducer
 })
 

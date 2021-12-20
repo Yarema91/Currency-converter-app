@@ -11,9 +11,7 @@ const CurrencyInput = ({ onChange, value }) => {
 
         <select className="form-select me-2"
             value={value}
-            onChange={onChange}
-
-            
+            onChange={onChange} 
         >
             {settings.currencyList.map(currency =>
                 <option value={currency}  key={currency}>{currency}</option>

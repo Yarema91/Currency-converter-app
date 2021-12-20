@@ -54,8 +54,7 @@ const ComparisonPage = () => {
     const onChangeDate = (e) => {
         let exchangeDate = e.target.value;
         setStartDate(exchangeDate)
-
-        // console.log('click date');
+        
     }
 
     var findTable;
@@ -68,11 +67,8 @@ const ComparisonPage = () => {
                 rateEnd: dataEnd.rates[x]
             }))
     }
-    // console.log('findTable', findTable);
-
 
     return (
-
         <div className="row" style={{
             // background: "red",
             boxSizing: "border-box",
@@ -86,7 +82,6 @@ const ComparisonPage = () => {
             <Card className="col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em", margin: "auto" }}>
                 <div id="toolbar" className="container" style={{
                     display: "contants",
-                    // alignItems: "flex-center",
                     // paddingBlockStart: "1em",
                     paddingBlockEnd: "2.2em",
                 }}
@@ -97,7 +92,6 @@ const ComparisonPage = () => {
                         paddingBlockEnd: "2.2em",
                     }}
                     >
-                      
                         <div className=" d-flex justify-content-center " style={{ flexWrap: "inherit" }}>
                             <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code} />
                            
@@ -111,7 +105,6 @@ const ComparisonPage = () => {
                             {endDateError && <h2>Error end date download...</h2>}
                     </div>
                       
-
                     <table className="table"
                         style={{
                             alignItems: "flex-center", paddingLeft: "2.2em",
@@ -127,10 +120,6 @@ const ComparisonPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                           
-                            </tr>
-                            
                             {findTable && findTable.map(t =>
                                 <tr key={t.currency}>
                                     <td>{t.currency}</td>

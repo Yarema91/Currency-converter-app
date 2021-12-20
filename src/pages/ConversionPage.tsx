@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
 import CurrencyContainer from "../components/CurrencyContainer";
-import * as moment from 'moment/moment.js';
+// import * as moment from 'moment/moment.js';
 
 
 const ConversionPage = () => {
-
-
   const persistedHistory = localStorage.getItem('history') as any;
   const parsedHistory = JSON.parse(persistedHistory);
   const [history, setHistory] = useState(parsedHistory || [])
@@ -39,8 +37,7 @@ const ConversionPage = () => {
         date: dateString
       }
     ]);
-
-    console.log('click local');
+    // console.log('click local');
   }
 
   return (
@@ -60,10 +57,6 @@ const ConversionPage = () => {
       <Card className=" col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em" }}>
         <table className="table table-borderless"
           style={{ alignItems: "flex-center", padding: "2.2em", alignContent: "center", }}
-        // id="table"
-        // data-toggle="table"
-        // data-height="460"
-        // data-url="json/data1.json"
         >
           <thead>
             <tr >
@@ -80,20 +73,10 @@ const ConversionPage = () => {
               <tr key={h.id}>
                 <td>{h.id}</td>
                 <td>{h.currency}</td>
-                {/* <td>{h.rate}</td> */}
                 <td>{h.amount}</td>
                 <td>{h.date}</td>
               </tr>
             ))}
-            {/* <tr>
-              <th scope="row">{row => row.next() }</th>
-              <td>USD</td>
-              <td>1</td>
-              <td>RUB</td>
-              <td>83.337146</td>
-              <td>06.12.21</td>
-              <td><i className="bi bi-trash"></i> </td>
-            </tr> */}
           </tbody>
         </table>
       </Card>
@@ -102,7 +85,7 @@ const ConversionPage = () => {
 };
 
 export default ConversionPage;
-function dateFormat() {
-  throw new Error("Function not implemented.");
-}
+// function dateFormat() {
+//   throw new Error("Function not implemented.");
+// }
 
