@@ -13,23 +13,18 @@ const ComparisonPage = () => {
 
     const [startDate, setStartDate] = useState(new Date());  //view change date1
     const startDateForRecquest = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
-    const { data, error, isLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
-   
+    const { data, error: errorStarDate, isLoading: isLoadingStarDate } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
+
     const [endDate, setEndDate] = useState(new Date());
     const endDateForRecquest = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`
+
     console.log(endDateForRecquest);
-
     const { data: dataEnd, error: endDateError, isLoading: endDateisLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: endDateForRecquest });
-    // const { dataEnd, error: endDateError, isLoading: endDateisLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
-
-
-    // const [amount, setAmount] = useState(1 as any); 
-
-    console.log('dataEnd', dataEnd);
-    console.log('data', data);
-    // console.log(rate.rate);
-
-
+  
+   
+    // console.log('dataEnd', dataEnd);
+    // console.log('data', data);
+ 
     // setTimeout(() => {
     //     let newArray = [] as any;
     //     for (const rate in data.rates) {
@@ -47,7 +42,7 @@ const ComparisonPage = () => {
     // }, 0)
 
 
- 
+
 
     // let differance = data1 > dataEnd : new Data(data) - new Data(dataEnd) : new Data(dataEnd)  - new Data(data) ;
 
@@ -60,12 +55,12 @@ const ComparisonPage = () => {
         let exchangeDate = e.target.value;
         setStartDate(exchangeDate)
 
-        console.log('click date');
+        // console.log('click date');
     }
 
     var findTable;
     if (data && dataEnd) {
-     findTable = settings.currencyList
+        findTable = settings.currencyList
             .filter(x => x != baseCurrency.code)
             .map(x => ({
                 currency: x,
@@ -73,8 +68,7 @@ const ComparisonPage = () => {
                 rateEnd: dataEnd.rates[x]
             }))
     }
-    console.log('findTable', findTable);
-    
+    // console.log('findTable', findTable);
 
 
     return (
@@ -93,34 +87,36 @@ const ComparisonPage = () => {
                 <div id="toolbar" className="container" style={{
                     display: "contants",
                     // alignItems: "flex-center",
-                    paddingBlockStart: "1em",
+                    // paddingBlockStart: "1em",
                     paddingBlockEnd: "2.2em",
                 }}
                 >
                     <div className="container" style={{
                         display: "contants",
-                        // alignItems: "flex-center",
                         paddingBlockStart: "1em",
                         paddingBlockEnd: "2.2em",
                     }}
                     >
+                      
                         <div className=" d-flex justify-content-center " style={{ flexWrap: "inherit" }}>
                             <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code} />
-                            {/* {isLoadingDate && <h1>Loading date...</h1>}
-                            {errorDate && <h1>Error date download...</h1>} */}
+                           
                             <DatePicker className=" me-2 p-1 " selected={startDate} onChange={(date) => setStartDate(date)} />
-                            {endDateisLoading && <h1>Loading end date...</h1>}
-                            {endDateError && <h1>Error end date download...</h1>}
+                           
                             <DatePicker className=" me-2 p-1 mw-auto" selected={endDate} onChange={(date) => setEndDate(date)} />
-
-                            {/* <button className="btn btn-outline-primary  " type="button" >Quantify</button> */}
                         </div>
+                        {isLoadingStarDate && <h2>Loading start date...</h2>}
+                            {errorStarDate && <h2>Error start date download...</h2>}
+                            {endDateisLoading && <h2>Loading end date...</h2>}
+                            {endDateError && <h2>Error end date download...</h2>}
                     </div>
-                    {/* {isLoading && <h1>Loading...</h1>}
-                    {error && <h1>Error download...</h1>} */}
-                    <table  className="table"
-                        style={{ alignItems: "flex-center", paddingLeft: "2.2em",
-                         alignContent: "center", margin: "auto", textAlign: "center" }}
+                      
+
+                    <table className="table"
+                        style={{
+                            alignItems: "flex-center", paddingLeft: "2.2em",
+                            alignContent: "center", margin: "auto", textAlign: "center"
+                        }}
                     >
                         <thead>
                             <tr>
@@ -131,14 +127,18 @@ const ComparisonPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                                  {findTable && findTable.map(t => 
-                                        <tr key={t.currency}>
-                                            <td>{t.currency}</td>
-                                            <td>{t.rateStart}</td>
-                                            <td>{t.rateEnd}</td>
-                                            <td>{(t.rateStart - t.rateEnd).toFixed(2)}</td>
-                                        </tr>
-                                    )}
+                            <tr>
+                           
+                            </tr>
+                            
+                            {findTable && findTable.map(t =>
+                                <tr key={t.currency}>
+                                    <td>{t.currency}</td>
+                                    <td>{t.rateStart}</td>
+                                    <td>{t.rateEnd}</td>
+                                    <td>{(t.rateStart - t.rateEnd).toFixed(4)}</td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

@@ -13,7 +13,7 @@ const HistoryPage = () => {
     const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
     const [changeDate, setChangeDate] = useState();
     const [startDate, setStartDate] = useState(new Date());  //view change date
-    const startDateForRecquest = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()-1}` 
+    const startDateForRecquest = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}` 
     const { data, error, isLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
     const [amount, setAmount] = useState(1 as any); //1
 
@@ -68,7 +68,7 @@ const HistoryPage = () => {
                     <div className="container" style={{
                         display: "contants",
                         // alignItems: "flex-center",
-                        paddingBlockStart: "1em",
+                        // paddingBlockStart: "1em",
                         paddingBlockEnd: "2.2em",
                     }}
                     >

@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap";
 import { currencyAPI } from "../services/CurrencyService";
 import settings from "../settings";
 import CurrencyInput from "./CurrencyInput";
-import { useLocalStorage } from "./useLocalStorage";
+// import { useLocalStorage } from "./useLocalStorage";
 
 
 var timeoutId;
@@ -14,20 +14,6 @@ var defaltHistory = [
     { 'currency': 'UAH', 'amount': 20 },
 ];
 
-// const getLocalStorage = () => {
-//     let list = localStorage.getItem('lists')
-//     console.log(list);
-
-//     if(list){
-//         return JSON.parse(localStorage.getItem('lists') || "")
-//     } else {
-//         return [];
-//     }
-// }
-
-// type props = {
-//     onChange1: ({currency: string, amount: string  }) => void
-// }
 
 const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
 
@@ -119,15 +105,6 @@ const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
             <table className="table"
                 style={{ alignItems: "flex-center", paddingLeft: "2.2em", alignContent: "center", margin: "auto", textAlign: "center" }}
                 id="table"
-                // data-toggle="table"
-                // data-height="460"
-                // data-toolbar="#toolbar"
-                // data-show-refresh="true"
-                // data-show-toggle="true"
-                // data-show-columns="true"
-                // data-query-params="queryParams"
-                // data-response-handler="responseHandler"
-                // data-url="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data"
             >
                 <thead>
                     <tr>
