@@ -21,30 +21,6 @@ const ComparisonPage = () => {
     console.log(endDateForRecquest);
     const { data: dataEnd, error: endDateError, isLoading: endDateisLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: endDateForRecquest });
   
-   
-    // console.log('dataEnd', dataEnd);
-    // console.log('data', data);
- 
-    // setTimeout(() => {
-    //     let newArray = [] as any;
-    //     for (const rate in data.rates) {
-    //         newArray
-    //             .push({
-    //                 currency: rate,
-    //                 data: data.rates[rate],
-    //                 dataEnd: dataEnd.rates[rate]
-    //             }
-    //             )
-    //             // .filter(x => settings.currencyList.includes(x.currency))
-    //             ;
-    //     }
-    //     console.log('newArray', newArray);
-    // }, 0)
-
-
-
-
-    // let differance = data1 > dataEnd : new Data(data) - new Data(dataEnd) : new Data(dataEnd)  - new Data(data) ;
 
     const handleSelectCurrency = (e) => {
         const selectValue = e.target.value;
@@ -70,7 +46,6 @@ const ComparisonPage = () => {
 
     return (
         <div className="row" style={{
-            // background: "red",
             boxSizing: "border-box",
             margin: "auto",
             padding: "2em",
@@ -82,7 +57,6 @@ const ComparisonPage = () => {
             <Card className="col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em", margin: "auto" }}>
                 <div id="toolbar" className="container" style={{
                     display: "contants",
-                    // paddingBlockStart: "1em",
                     paddingBlockEnd: "2.2em",
                 }}
                 >

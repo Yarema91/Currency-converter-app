@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
 import CurrencyContainer from "../components/CurrencyContainer";
-// import * as moment from 'moment/moment.js';
 
 
 const ConversionPage = () => {
@@ -37,12 +36,10 @@ const ConversionPage = () => {
         date: dateString
       }
     ]);
-    // console.log('click local');
   }
 
   return (
     <div className="row" style={{
-      // background: "red",
       boxSizing: "border-box",
       margin: "auto",
       padding: "2em",
@@ -64,7 +61,6 @@ const ConversionPage = () => {
               <th >Currency</th>
               <th >Amount</th>
               <th >Date</th>
-              {/* <th >Delete</th> */}
             </tr>
           </thead>
           <tbody style={{ textAlign: "center" }}>
@@ -85,7 +81,4 @@ const ConversionPage = () => {
 };
 
 export default ConversionPage;
-// function dateFormat() {
-//   throw new Error("Function not implemented.");
-// }
 

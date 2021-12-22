@@ -13,13 +13,12 @@ import {
 import { Line } from 'react-chartjs-2';
 import CurrencyInput from '../components/CurrencyInput';
 import settings from '../settings';
-// import faker from 'faker';
 
 import DatePicker from "react-datepicker";
 import { Card } from 'react-bootstrap';
 import { currencyAPI } from '../services/CurrencyService';
 import { KeyObject } from 'crypto';
-import currencyLine from '../components/currencyLine';
+
 
 ChartJS.register(
   CategoryScale,
