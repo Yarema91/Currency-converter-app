@@ -18,7 +18,6 @@ export const currencyAPI = createApi({
                 params: {
                     base: baseCurrency
                 },
-
                 providesTags: (result) =>
         result
           ? [
@@ -51,9 +50,7 @@ export const currencyAPI = createApi({
                     start_date: graphArgs.startDateGraph,
                     end_date: graphArgs.endDateGraph
                 }
-           
         }),
         }),
-
 })
 })

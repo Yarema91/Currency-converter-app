@@ -7,13 +7,12 @@ import CurrencyInput from "./CurrencyInput";
 
 var timeoutId;
 
-var defaltHistory = [
-    { 'currency': 'USD', 'amount': 100 },
-    { 'currency': 'UAH', 'amount': 20 },
-];
+// var defaltHistory = [
+//     { 'currency': 'USD', 'amount': 100 },
+//     { 'currency': 'UAH', 'amount': 20 },
+// ];
 
-
-const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
+const CurrencyContainer: React.FC<any> = ({ onChange1 }) => {
 
     const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
 
@@ -21,24 +20,9 @@ const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
 
     const [amount, setAmount] = useState(1 as any); //1
 
-    const persistedHistory = localStorage.getItem('history') as any;
-    const parsedHistory = JSON.parse(persistedHistory );
-    const [history, setHistory] = useState(parsedHistory  || [] as any); // defaltHistory
-
-    // localStorage.setItem('defaltHistory', JSON.stringify(defaltHistory));
-    // const persistedHistory = localStorage.getItem('defaltHistory') as any;
+    // const persistedHistory = localStorage.getItem('history') as any;
     // const parsedHistory = JSON.parse(persistedHistory);
-    // console.log(parsedHistory);
-
-    // useEffect(() => {
-    //     if (history) {
-    //         try {
-    //         localStorage.setItem('history', JSON.stringify(history)); 
-    //         } catch (err) {
-    //           console.log(err);
-    //         }
-    //       }
-    // }, [history])
+    // const [history, setHistory] = useState(parsedHistory || [] as any); // defaltHistory
 
 
     const handleSelectCurrency = (e) => {
@@ -50,7 +34,6 @@ const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
 
         let exchangeRate = e.target.value;
         setAmount(exchangeRate); //
-        console.log('exchangeRate', exchangeRate);
 
         timeoutId && clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
@@ -58,23 +41,9 @@ const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
             if (amount !== 1) {
                 onChange1({
                     currency: baseCurrency.code,
-                        amount: exchangeRate,
-            })
-                // setHistory([
-                //     ...history,
-                //     {
-                //         id: history.length + 1,
-                //         currency: baseCurrency.code,
-                //         amount: exchangeRate.trim(),
-                //         date:  data.date
-                //     } 
-                // ]);
+                    amount: exchangeRate,
+                })
             }
-            //  setHistory([...history, amount]);
-            // localStorage.setItem('exchangeRate', JSON.stringify(exchangeRate))
-            // console.log(history);
-            // setAmount(1)
-            console.log('hello');
         }, 3000)
     }
 
@@ -87,7 +56,7 @@ const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
             }}
             >
                 <div className=" d-flex justify-content-center " style={{ flexWrap: "inherit" }}>
-                    
+
                     <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code} />
 
                     <input type="number" min={1}
@@ -95,8 +64,8 @@ const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
                         value={amount} onChange={onChangeAmount} />
                 </div>
             </div>
-                {isLoading && <h1>Loading...</h1>}
-                {error && <h1>Error download...</h1>}
+            {isLoading && <h1>Loading...</h1>}
+            {error && <h1>Error download...</h1>}
             <table className="table"
                 style={{ alignItems: "flex-center", paddingLeft: "2.2em", alignContent: "center", margin: "auto", textAlign: "center" }}
                 id="table"
@@ -113,7 +82,7 @@ const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
                         .map(x => ({ currency: x, rate: data.rates[x] }))
                         .filter(x => settings.currencyList.includes(x.currency))
                         .filter(x => x.currency != data.base)
-                       .map(rate =>
+                        .map(rate =>
                             <tr key={rate.currency}>
                                 <td>{rate.currency}</td>
                                 <td>{rate.rate}</td>
@@ -122,7 +91,6 @@ const CurrencyContainer: React.FC<any>  = ({onChange1}) => {
                         )}
                 </tbody>
             </table>
-
         </div>
     )
 }

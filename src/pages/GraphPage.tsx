@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Chart as ChartJS,
@@ -78,24 +77,21 @@ export default function GraphPage() {
 
   const { data: dataG, error: errorGraph, isLoading: isLoadingGraph } = currencyAPI.useFetchGraphQuery<any>({ baseCurrency: baseCurrency.code, startDateGraph: startDateForRecquest, endDateGraph: endDateForRecquest });
 
-//localstorage
+  //localstorage
   const persistedSelectorCurrency = localStorage.getItem('currencyList') as any;
   const parsedCurrency = JSON.parse(persistedSelectorCurrency);
-  const [history, setHistory] = useState(parsedCurrency || [])
-  console.log('parsedCurrency', parsedCurrency);
-  const [currencyList, setCurrencyList] = useState(parsedCurrency || []);
+  // const [currencyList, setCurrencyList] = useState(parsedCurrency || []);
+
   
   let chartData = {
     labes: [],
     datasets: []
   } as any;
 
-// console.log('redner')
-
-let currencyData = {
-  render: false,
-  rates: {}
-};
+  let currencyData = {
+    render: false,
+    rates: {}
+  };
 
   if (dataG && dataG.rates) {
     const dates = Object.keys(dataG.rates);
@@ -104,11 +100,16 @@ let currencyData = {
     currencyData = Object.assign(currencyData, dataG)
     currencyData.render = true;
 
-    // labes => dates
-    // currencyLabels => settings.currencyList
-    
+  //test selectedState
+    let selectedCurrencyList = [] as any;
+    parsedCurrency.forEach(element => {
+      selectedCurrencyList.push(element.value);
+    });
+    console.log('ss', selectedCurrencyList);
+
+
     // settings.currencyList.forEach((currency, index) => {
-      parsedCurrency.forEach((currency, index) => {
+    selectedCurrencyList.forEach((currency, index) => {
 
       let chartItem = {
         label: '',
@@ -133,10 +134,10 @@ let currencyData = {
       // backgroundColor: 'rgba(255, 99, 132, 0.5)',
 
     });
-
-    console.log('chart data', chartData);
+    // console.log('chart data', chartData);
   }
-            
+
+
   const handleSelectCurrency = (e) => {
     const selectValue = e.target.value;
     setBaseCurrency({ code: selectValue })
@@ -151,13 +152,13 @@ let currencyData = {
       alignItems: "flex-center",
       justifyContent: "center",
     }}>
-    <div className="App">
-          {errorGraph ? (
-            <>Oh no, there was an error</>
-          ) : isLoadingGraph? (
-            <h1>Loading...</h1>
-          ) : null}
-        </div>
+      <div className="App">
+        {errorGraph ? (
+          <>Oh no, there was an error</>
+        ) : isLoadingGraph ? (
+          <h1>Loading...</h1>
+        ) : null}
+      </div>
 
       <Card className="col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em", margin: "auto" }}>
         <div id="toolbar" className="container" style={{
@@ -195,9 +196,5 @@ let currencyData = {
         justifyContent: "center"
       }} options={options} data={chartData} />
     </div>
-
-
-
   )
-
 }

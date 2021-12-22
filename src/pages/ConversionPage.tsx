@@ -23,7 +23,7 @@ const ConversionPage = () => {
   var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
     .toISOString()
     .split("T")[0];
-  console.log(dateString);
+
 
   const onChangeAmount = (rate) => {
 
