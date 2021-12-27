@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { currencyAPI } from '../services/CurrencyService';
 import settings from '../settings';
 
+import SelectedCurencySlice, { add, remove } from '../store/SelectedCurencySlice';
 
-export default function App() {
+
+export default function SelectionCurrency() {
+
+const {currencyList1} = useAppSelector(state => state.selectorSlise);
+// const {add} = SelectedCurencySlice.actions ; 
+const dispatch = useAppDispatch();
+// const [store, setStore] = useState(null)
+
+console.log('currencyList1', currencyList1);
+
+// store.subscribe(()=>{
+//   localStorage.setItem('currencyList', JSON.stringify(store.getState()))
+// })
+
 
   const options = [] as any;
-
   const persistedCurrencyList = localStorage.getItem('currencyList') as any;
   const parsedcurrencyList = JSON.parse(persistedCurrencyList);
-  const [selectedOption, setSelectedOption] = useState(parsedcurrencyList || []) as any; //[]
+  const [selectedOption, setSelectedOption] = useState(currencyList1 || []) as any; //parsedcurrencyList
 
   const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(selectedOption);
 
-  // const[ state, setState] = useState();
+ 
   let currencyList = [] as any;
 
   useEffect(() => {
@@ -39,20 +53,11 @@ export default function App() {
   }
   console.log('selectedOption S', selectedOption);
 
+  console.log('add', add(selectedOption));
+  // dispatch(add(selectedOption))
 
 
-//   let selectedCurrencyList1 = [] as any;
-
-//   selectedOption.forEach(element => {
-//       selectedCurrencyList1.push(element.value);
-//     });
-
-// // setCurrencyList1(selectedCurrencyList1)
-// // setState();
-// console.log(' selectedCurrencyList1',  selectedCurrencyList1);
-
-
-
+  // setSelectedOption()
 
   // const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
   // const r = randomBetween(0, 255);
@@ -64,6 +69,7 @@ export default function App() {
 
   return (
     <div className="App">
+      {/* <button  onChange={() => dispatch(add(selectedOption))}>hvhjjj</button> */}
       <Select
         defaultValue={selectedOption}
         onChange={setSelectedOption}
