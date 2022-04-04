@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
+// import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { currencyAPI } from '../services/CurrencyService';
 import settings from '../settings';
 
@@ -9,12 +9,12 @@ import SelectedCurencySlice, { add, remove } from '../store/SelectedCurencySlice
 
 export default function SelectionCurrency() {
 
-const {currencyList1} = useAppSelector(state => state.selectorSlise);
+// const {currencyList1} = useAppSelector(state => state.selectorSlise);
 // const {add} = SelectedCurencySlice.actions ; 
-const dispatch = useAppDispatch();
+// const dispatch = useAppDispatch();
 // const [store, setStore] = useState(null)
 
-console.log('currencyList1', currencyList1);
+// console.log('currencyList1', currencyList1);
 
 // store.subscribe(()=>{
 //   localStorage.setItem('currencyList', JSON.stringify(store.getState()))
@@ -24,7 +24,7 @@ console.log('currencyList1', currencyList1);
   const options = [] as any;
   const persistedCurrencyList = localStorage.getItem('currencyList') as any;
   const parsedcurrencyList = JSON.parse(persistedCurrencyList);
-  const [selectedOption, setSelectedOption] = useState(currencyList1 || []) as any; //parsedcurrencyList
+  const [selectedOption, setSelectedOption] = useState(parsedcurrencyList || []) as any; //parsedcurrencyList
 
   const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(selectedOption);
 

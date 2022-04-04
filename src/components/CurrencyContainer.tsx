@@ -38,12 +38,16 @@ const CurrencyContainer: React.FC<any> = ({ onChange1 }) => {
         timeoutId && clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
 
-            if (amount !== 1) {
-                onChange1({
-                    currency: baseCurrency.code,
-                    amount: exchangeRate,
-                })
-            }
+            // if (amount !== 1) {
+            //     onChange1({
+            //         currency: baseCurrency.code,
+            //         amount: exchangeRate,
+            //     })
+            // }
+            (amount !== 1) && onChange1({
+                currency: baseCurrency.code,
+                amount: exchangeRate,
+            })
         }, 3000)
     }
 

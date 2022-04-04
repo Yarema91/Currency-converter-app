@@ -17,7 +17,7 @@ import DatePicker from "react-datepicker";
 import { Card } from 'react-bootstrap';
 import { currencyAPI } from '../services/CurrencyService';
 import { KeyObject } from 'crypto';
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
+// import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { selectorSlice } from '../store/SelectedCurencySlice';
 
 

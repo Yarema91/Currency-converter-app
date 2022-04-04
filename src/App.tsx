@@ -5,13 +5,12 @@ import HistoryPage from "./pages/HistoryPage";
 import GraphPage from "./pages/GraphPage";
 import ComparisonPage from "./pages/ComparisonPage";
 import ConversionPage from "./pages/ConversionPage";
-import { useAppDispatch, useAppSelector } from "./hooks/redux";
+// import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { selectorSlice } from "./store/SelectedCurencySlice";
 
 
 
 const App = () => {
-
 
     return (
         <HashRouter>
