@@ -9,16 +9,16 @@ import SelectedCurencySlice, { add, remove } from '../store/SelectedCurencySlice
 
 export default function SelectionCurrency() {
 
-// const {currencyList1} = useAppSelector(state => state.selectorSlise);
-// const {add} = SelectedCurencySlice.actions ; 
-// const dispatch = useAppDispatch();
-// const [store, setStore] = useState(null)
+  // const {currencyList1} = useAppSelector(state => state.selectorSlise);
+  // const {add} = SelectedCurencySlice.actions ; 
+  // const dispatch = useAppDispatch();
+  // const [store, setStore] = useState(null)
 
-// console.log('currencyList1', currencyList1);
+  // console.log('currencyList1', currencyList1);
 
-// store.subscribe(()=>{
-//   localStorage.setItem('currencyList', JSON.stringify(store.getState()))
-// })
+  // store.subscribe(()=>{
+  //   localStorage.setItem('currencyList', JSON.stringify(store.getState()))
+  // })
 
 
   const options = [] as any;
@@ -28,7 +28,7 @@ export default function SelectionCurrency() {
 
   const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(selectedOption);
 
- 
+
   let currencyList = [] as any;
 
   useEffect(() => {
@@ -51,9 +51,9 @@ export default function SelectionCurrency() {
       })
     })
   }
-  console.log('selectedOption S', selectedOption);
+  // console.log('selectedOption S', selectedOption);
 
-  console.log('add', add(selectedOption));
+  // console.log('add', add(selectedOption));
   // dispatch(add(selectedOption))
 
 

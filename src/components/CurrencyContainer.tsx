@@ -7,10 +7,7 @@ import CurrencyInput from "./CurrencyInput";
 
 var timeoutId;
 
-// var defaltHistory = [
-//     { 'currency': 'USD', 'amount': 100 },
-//     { 'currency': 'UAH', 'amount': 20 },
-// ];
+
 
 const CurrencyContainer: React.FC<any> = ({ onChange1 }) => {
 
@@ -38,12 +35,7 @@ const CurrencyContainer: React.FC<any> = ({ onChange1 }) => {
         timeoutId && clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
 
-            // if (amount !== 1) {
-            //     onChange1({
-            //         currency: baseCurrency.code,
-            //         amount: exchangeRate,
-            //     })
-            // }
+            
             (amount !== 1) && onChange1({
                 currency: baseCurrency.code,
                 amount: exchangeRate,
