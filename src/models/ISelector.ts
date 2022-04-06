@@ -1,4 +1,4 @@
-export interface ISelector{
-   currency: string,
-   color: string  
+export interface ISelector {
+  currency: string;
+  color: string;
 }

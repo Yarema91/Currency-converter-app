@@ -1,8 +1,7 @@
-export interface ICurrency{
-    id: number,
-    success: boolean,
-    base: symbol,
-    date: number,
-    rates: object
-    
+export interface ICurrency {
+  id: number;
+  success: boolean;
+  base: symbol;
+  date: number;
+  rates: object;
 }

@@ -1,8 +1,8 @@
 {
-  "name": "react-pizza",
+  "name": "react-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ats-projects.herokuapp.com/",
+  "homepage": "Converter currency",
   "dependencies": {
     "@babel/core": "7.9.0",
     "@popperjs/core": "^2.11.0",
@@ -93,13 +93,18 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
+  
+
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "server": "node server.js",
     "json-server": "json-server --watch ./public/db.json --port=5000",
     "prettier": "prettier 'src/**/*.ts'",
-    "prettier:fix": "prettier --write 'src/**/*.ts'"
+    "prettier:fix": "prettier --write 'src/**/*.ts'",
+    "lint": "eslint . --ext .ts"
+   
+
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -183,5 +188,6 @@
     "husky": "7.0.4",
     "lint-staged": "12.3.7",
     "prettier": "^2.6.2"
+   
   }
 }
