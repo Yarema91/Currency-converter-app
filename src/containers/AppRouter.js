@@ -1,12 +1,6 @@
-/* eslint-disable indent */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react/jsx-indent */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
 import React from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
-// eslint-disable-next-line import/no-unresolved
-import Header from "../pages/Navbar";
+import Header from './Navbar';
 import HistoryPage from "../pages/HistoryPage";
 import GraphPage from "../pages/GraphPage";
 import ComparisonPage from "../pages/ComparisonPage";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
-import CurrencyContainer from "../components/CurrencyContainer";
+import CurrencyContainer from "../containers/CurrencyContainer";
 
 
 const ConversionPage = () => {
@@ -48,7 +48,7 @@ const ConversionPage = () => {
       justifyContent: "center",
     }}>
       <Card className="col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em" }}>
-        <CurrencyContainer onChange1={onChangeAmount} />
+        <CurrencyContainer onChange={onChangeAmount} />
       </Card>
 
       <Card className=" col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em" }}>

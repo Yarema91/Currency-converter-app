@@ -93,8 +93,6 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-  
-
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
@@ -103,8 +101,6 @@
     "prettier": "prettier 'src/**/*.ts'",
     "prettier:fix": "prettier --write 'src/**/*.ts'",
     "lint": "eslint . --ext .ts"
-   
-
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -179,8 +175,7 @@
     "eslint": "^8.12.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-import-resolver-typescript": "^2.4.0",
-    "eslint-plugin-import": "^2.25.4",
+
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",

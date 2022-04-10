@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import SelectorCurrency from '../components/SelectorCurrency';
-import { ICurrency } from '../models/ICurrency';
+import Selector from '../components/Selector';
+// import { ICurrency } from '../models/ICurrency';
 
 
 const defaultFormValues = {
@@ -41,9 +41,9 @@ const Header = () => {
           </ul>
           <div>
             <div className="input-group me-2 currency-converter d--flex a--center j--spaceBetween" style={{ display: "flex" }} >
-              <SelectorCurrency />
+              <Selector />
             </div>
-            </div>
+          </div>
         </div>
       </div>
     </nav>

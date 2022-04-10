@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["/*"],
+      "@src/*": ["src/*"],
+      "@any-other-folder/*": ["src/client/../any-other-folder/*"]
+    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -16,6 +22,18 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noImplicitAny": false
+
   },
-  "include": ["src"]
+  "include": ["src",
+     "internals/startingTemplate/**/*"
+    ],
+  "ts-node": {
+    "compilerOptions": {
+      "esModuleInterop": true,
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noEmit": true,
+      "allowSyntheticDefaultImports": true
+    }
+  }
 }

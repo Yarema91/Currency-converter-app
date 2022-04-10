@@ -4,7 +4,7 @@ import { currencyAPI } from "../services/CurrencyService";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import settings from "../settings";
-import CurrencyInput from "../components/CurrencyInput";
+import Input from "../components/Input";
 
 
 const ComparisonPage = () => {
@@ -67,7 +67,7 @@ const ComparisonPage = () => {
           }}
           >
             <div className=" d-flex justify-content-center " style={{ flexWrap: "inherit" }}>
-              <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code} />
+              <Input onChange={handleSelectCurrency} value={baseCurrency.code} />
 
               <DatePicker className=" me-2 p-1 " selected={startDate} onChange={(date) => setStartDate(date)} />
 

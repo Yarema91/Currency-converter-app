@@ -4,7 +4,7 @@ import { currencyAPI } from "../services/CurrencyService";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import settings from "../settings";
-import CurrencyInput from "../components/CurrencyInput";
+import Input from "../components/Input";
 
 var timeoutId;
 
@@ -13,7 +13,7 @@ const HistoryPage = () => {
     const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
     const [changeDate, setChangeDate] = useState();
     const [startDate, setStartDate] = useState(new Date());  //view change date
-    const startDateForRecquest = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}` 
+    const startDateForRecquest = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
     const { data, error, isLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
     const [amount, setAmount] = useState(1 as any); //1
 
@@ -26,17 +26,17 @@ const HistoryPage = () => {
     const onChangeAmount = (e) => {
         let exchangeRate = e.target.value;
         setAmount(exchangeRate); //
-        
+
         timeoutId && clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
-         
+
         }, 3000)
     }
-     const onChangeDate = (e) => {
+    const onChangeDate = (e) => {
         let exchangeRate = e.target.value;
-        setStartDate(exchangeRate )
-      
-     }
+        setStartDate(exchangeRate)
+
+    }
 
     return (
         <div className="row" style={{
@@ -62,21 +62,23 @@ const HistoryPage = () => {
                     >
                         <div className=" d-flex justify-content-center " style={{ flexWrap: "inherit" }}>
 
-                            <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code} />
+                            <Input onChange={handleSelectCurrency} value={baseCurrency.code} />
 
                             <input type="number" min={1}
-                                className="form-control me-2" 
-                                value={amount} 
+                                className="form-control me-2"
+                                value={amount}
                                 onChange={onChangeAmount} />
 
                             <DatePicker className="me-2 p-1 " selected={startDate} onChange={(date) => setStartDate(date)} />
                         </div>
                     </div>
-                        {isLoading && <h1>Loading...</h1>}
-                        {error && <h1>Error download...</h1>}
+                    {isLoading && <h1>Loading...</h1>}
+                    {error && <h1>Error download...</h1>}
                     <table className="table"
-                        style={{ alignItems: "flex-center", paddingLeft: "2.2em",
-                         alignContent: "center", margin: "auto", textAlign: "center" }}
+                        style={{
+                            alignItems: "flex-center", paddingLeft: "2.2em",
+                            alignContent: "center", margin: "auto", textAlign: "center"
+                        }}
                     >
                         <thead>
                             <tr>
@@ -87,7 +89,7 @@ const HistoryPage = () => {
                             </tr>
                         </thead>
                         <tbody >
-                            
+
                             {data && Object.keys(data.rates)
                                 .map(x => ({ currency: x, rate: data.rates[x] }))
                                 .filter(x => settings.currencyList.includes(x.currency))
@@ -96,7 +98,7 @@ const HistoryPage = () => {
                                     <tr key={rate.currency}>
                                         <td>{rate.currency}</td>
                                         <td>{rate.rate}</td>
-                                        <td>{(rate.rate * (amount < 0 ? 0 : amount)).toLocaleString('en-US',{
+                                        <td>{(rate.rate * (amount < 0 ? 0 : amount)).toLocaleString('en-US', {
                                             style: 'currency',
                                             currency: rate.currency,
                                         })}</td>

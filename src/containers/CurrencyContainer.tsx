@@ -1,22 +1,18 @@
-/* eslint-disable import/extensions */
-/* eslint-disable prettier/prettier */
-/* eslint-disable import/no-unresolved */
-import React, { useState } from "react";
-import { currencyAPI } from "../services/CurrencyService";
-import settings from "../settings";
-import CurrencyInput from "./CurrencyInput";
+import React, { useState } from 'react';
+import { currencyAPI } from '../services/CurrencyService';
+import settings from '../settings';
+import Input from '../components/Input';
 
-// eslint-disable-next-line react/function-component-definition
-const CurrencyContainer: React.FC<any> = ({ onChange1 }) => {
+const CurrencyContainer: React.FC<any> = ({ onChange }) => {
   const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({
     code: settings.baseCurrency,
   });
 
   const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(
-    baseCurrency.code,
+    baseCurrency.code
   );
 
-  const [amount, setAmount] = useState(1 as any);
+  const [amount, setAmount] = useState(1 as number);
 
   const handleSelectCurrency = (e) => {
     const selectValue = e.target.value;
@@ -28,10 +24,9 @@ const CurrencyContainer: React.FC<any> = ({ onChange1 }) => {
     setAmount(exchangeRate);
 
     let timeoutId;
-    // eslint-disable-next-line no-unused-expressions
     timeoutId && clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
-      onChange1({
+      onChange({
         currency: baseCurrency.code,
         amount: exchangeRate,
       });
@@ -39,22 +34,21 @@ const CurrencyContainer: React.FC<any> = ({ onChange1 }) => {
   };
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <div>
       <div
         id="toolbar"
         className="container"
         style={{
-          display: "contants",
-          paddingBlockStart: "1em",
-          paddingBlockEnd: "2.2em",
+          display: 'contants',
+          paddingBlockStart: '1em',
+          paddingBlockEnd: '2.2em',
         }}
       >
         <div
           className=" d-flex justify-content-center "
-          style={{ flexWrap: "inherit" }}
+          style={{ flexWrap: 'inherit' }}
         >
-          <CurrencyInput
+          <Input
             onChange={handleSelectCurrency}
             value={baseCurrency.code}
           />
@@ -74,11 +68,11 @@ const CurrencyContainer: React.FC<any> = ({ onChange1 }) => {
       <table
         className="table"
         style={{
-          alignItems: "flex-center",
-          paddingLeft: "2.2em",
-          alignContent: "center",
-          margin: "auto",
-          textAlign: "center",
+          alignItems: 'flex-center',
+          paddingLeft: '2.2em',
+          alignContent: 'center',
+          margin: 'auto',
+          textAlign: 'center',
         }}
         id="table"
       >
@@ -90,8 +84,8 @@ const CurrencyContainer: React.FC<any> = ({ onChange1 }) => {
           </tr>
         </thead>
         <tbody>
-          {data
-            && Object.keys(data.rates)
+          {data &&
+            Object.keys(data.rates)
               .map((x) => ({ currency: x, rate: data.rates[x] }))
               .filter((x) => settings.currencyList.includes(x.currency))
               .filter((x) => x.currency !== data.base)

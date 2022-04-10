@@ -10,7 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import CurrencyInput from '../components/CurrencyInput';
+import Input from '../components/Input';
 import settings from '../settings';
 
 import DatePicker from "react-datepicker";
@@ -75,8 +75,8 @@ export default function GraphPage() {
   //   const dispatch = useAppDispatch();
 
   //   console.log('jjbj', increment(5));
- 
-    
+
+
 
 
 
@@ -95,7 +95,7 @@ export default function GraphPage() {
   const parsedCurrency = JSON.parse(persistedSelectorCurrency);
   // const [currencyList, setCurrencyList] = useState(parsedCurrency || []);
 
-  
+
   let chartData = {
     labes: [],
     datasets: []
@@ -113,12 +113,12 @@ export default function GraphPage() {
     currencyData = Object.assign(currencyData, dataG)
     currencyData.render = true;
 
-  //test selectedState
+    //test selectedState
     let selectedCurrencyList = [] as any;
     parsedCurrency.forEach(element => {
       selectedCurrencyList.push(element.value);
     });
-    console.log( selectedCurrencyList);
+    console.log(selectedCurrencyList);
 
 
     // settings.currencyList.forEach((currency, index) => {
@@ -154,7 +154,7 @@ export default function GraphPage() {
   const handleSelectCurrency = (e) => {
     const selectValue = e.target.value;
     setBaseCurrency({ code: selectValue })
-  } 
+  }
 
   return (
     <div className="row" style={{
@@ -165,7 +165,7 @@ export default function GraphPage() {
       alignItems: "flex-center",
       justifyContent: "center",
     }}>
-       
+
       <div className="App">
         {errorGraph ? (
           <>Oh no, there was an error</>
@@ -175,7 +175,7 @@ export default function GraphPage() {
       </div>
       {/* <h1>Test {currencyList}</h1>
       <button onClick={()=> dispatch(increment(10))}> Increment </button> */}
-     
+
 
       <Card className="col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em", margin: "auto" }}>
         <div id="toolbar" className="container" style={{
@@ -188,17 +188,17 @@ export default function GraphPage() {
             paddingBlockStart: "1em",
           }}
           >
-            
+
 
             <div className=" d-flex justify-content-center " style={{ flexWrap: "inherit" }}>
-              <CurrencyInput onChange={handleSelectCurrency} value={baseCurrency.code} />
+              <Input onChange={handleSelectCurrency} value={baseCurrency.code} />
               {/* {isLoadingDate && <h1>Loading date...</h1>}
                             {errorDate && <h1>Error date download...</h1>} */}
               <DatePicker className=" me-2 p-1 " selected={startDate} onChange={(date) => setStartDate(date)} />
               {/* {endDateisLoading && <h1>Loading end date...</h1>}
                             {endDateError && <h1>Error end date download...</h1>} */}
               <DatePicker className=" me-2 p-1 mw-auto" selected={endDate} onChange={(date) => setEndDate(date)} />
-              
+
             </div>
           </div>
         </div>
@@ -206,7 +206,7 @@ export default function GraphPage() {
 
       {isLoadingGraph && <h1 className='align-content-sm-center'>Loading date with graph...</h1>}
       {errorGraph && <h1>Error download date with graph...</h1>}
-     
+
       <Line style={{
         width: "fit-content",
         margin: "auto",

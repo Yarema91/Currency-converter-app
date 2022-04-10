@@ -1,20 +1,18 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable import/extensions */
+
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-// eslint-disable-next-line import/no-unresolved
 import { currencyAPI } from "../services/CurrencyService";
 
-export default function SelectionCurrency() {
-  const options = [] as any;
-  const persistedCurrencyList = localStorage.getItem("currencyList") as any;
+export default function Selector() {
+  const options = [] as [];
+  const persistedCurrencyList = localStorage.getItem("currencyList") as string;
   const parsedcurrencyList = JSON.parse(persistedCurrencyList);
   const [selectedOption, setSelectedOption] = useState(
     parsedcurrencyList || [],
-  ) as any; // parsedcurrencyList
+  ) as any;
 
   const { error, isLoading } = currencyAPI.useFetchAllRatesQuery(selectedOption);
-  const currencyList = [] as any;
+  const currencyList = [] as [];
 
   useEffect(() => {
     if (currencyList) {
@@ -26,7 +24,6 @@ export default function SelectionCurrency() {
     }
   }, [currencyList]);
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <div className="App">
       {isLoading && <h1>Loading...</h1>}
       {error && <h1>Error download...</h1>}
