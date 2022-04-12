@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
 import CurrencyContainer from "../containers/CurrencyContainer";
+import { ICurrency } from "@src/models/ICurrency";
 
 
 const ConversionPage = () => {

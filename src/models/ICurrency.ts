@@ -3,5 +3,6 @@ export interface ICurrency {
   success: boolean;
   base: symbol;
   date: number;
-  rates: object;
+  rates: {};
+  rate: number;
 }
