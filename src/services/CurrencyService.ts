@@ -31,7 +31,7 @@ export const currencyAPI = createApi({
         fetchChangeDate: build.query<any, ChangDateArgs>({
             query: (changDateArgs: ChangDateArgs) => { 
                 const nowDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-                var isLatest = (nowDate === changDateArgs.changeDate);
+                const isLatest = (nowDate === changDateArgs.changeDate);
 
                 return ({
                 url: isLatest ? `/latest` : `/${changDateArgs.changeDate}`,

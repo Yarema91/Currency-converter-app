@@ -43,16 +43,16 @@ export const options = {
 
 export default function GraphPage() {
 
-  // const [selectedCurrencyList, setSelectedCurrencyList] = useState([]) as any;
+
   const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
 
-  const [startDate, setStartDate] = useState(new Date());  //view change date1
+  const [startDate, setStartDate] = useState(new Date());
   const startDateForRecquest = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
 
   const [endDate, setEndDate] = useState(new Date());
   const endDateForRecquest = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`
 
-  const { data: dataG, error: errorGraph, isLoading: isLoadingGraph } = currencyAPI.useFetchGraphQuery<any>({ baseCurrency: baseCurrency.code, startDateGraph: startDateForRecquest, endDateGraph: endDateForRecquest });
+  const { data: dataG, error: errorGraph, isLoading: isLoadingGraph } = currencyAPI.useFetchGraphQuery({ baseCurrency: baseCurrency.code, startDateGraph: startDateForRecquest, endDateGraph: endDateForRecquest });
 
 
 
@@ -66,31 +66,26 @@ export default function GraphPage() {
     rates: {}
   };
 
-  // useEffect(() => {
+
+
   //localstorage
   const persistedSelectorCurrency = localStorage.getItem('currencyList') as string;
   const parsedCurrency = JSON.parse(persistedSelectorCurrency);
 
-  const selectedCurrencyList = [] as any;
+
+  const selectedArr = [] as any;
   parsedCurrency.forEach(element => {
-    selectedCurrencyList.push(element.value);
+    selectedArr.push(element.value);
   });
 
-  // const arr = [];
-  // arr.push(element.value)
-  // parsedCurrency.forEach((element: any) => {
+  const [selectedCurrencyList, setSelectedCurrencyList] = useState(selectedArr || []) as any;
 
-
-  // setSelectedCurrencyList([
-  //   ...selectedCurrencyList,
-  //   element.value
-  // ]);
-  // }
-  // );
-
-  // console.log('selectedCurrencyList', selectedCurrencyList);
-  // }), [];
-
+  // useEffect(() => {
+  //   if (selectedArr !== selectedCurrencyList) {
+  //     setSelectedCurrencyList(selectedArr)
+  //   }
+  // }, []
+  // )
 
   if (dataG && dataG.rates) {
     const dates = Object.keys(dataG.rates);
@@ -156,7 +151,3 @@ export default function GraphPage() {
     </div>
   )
 }
-// function setSelectedCurrencyList(arg0: any[]) {
-//   throw new Error('Function not implemented.');
-// }
-

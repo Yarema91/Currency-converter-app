@@ -6,7 +6,7 @@ import { ICurrency } from "@src/models/ICurrency";
 
 
 const ConversionPage = () => {
-  const persistedHistory = localStorage.getItem('history') as any;
+  const persistedHistory = localStorage.getItem('history') as string;
   const parsedHistory = JSON.parse(persistedHistory);
   const [history, setHistory] = useState(parsedHistory || [])
 
@@ -21,7 +21,8 @@ const ConversionPage = () => {
   }, [history])
 
   const date = new Date();
-  const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+  const convertTime = 60000;
+  const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * convertTime))
     .toISOString()
     .split("T")[0];
 

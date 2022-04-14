@@ -13,7 +13,7 @@ interface CurrencyState {
   selector: ISelector[];
   isLoading: boolean;
   error: string;
-  currencyList1: Currency[];
+  currencyList: Currency[];
 }
 
 // const persistedCurrencyList = localStorage.getItem('currencyList') as any;
@@ -23,7 +23,7 @@ const initialState: CurrencyState = {
   selector: [],
   isLoading: false,
   error: "",
-  currencyList1: [{ value: "AMD", label: "AMD" }],
+  currencyList: [{ value: "AMD", label: "AMD" }],
 };
 
 export const selectorSlice = createSlice({
@@ -31,8 +31,8 @@ export const selectorSlice = createSlice({
   initialState,
   reducers: {
     add(state, action: PayloadAction<string>) {
-      state.currencyList1 = [
-        ...state.currencyList1,
+      state.currencyList = [
+        ...state.currencyList,
         {
           value: action.payload,
           label: action.payload,

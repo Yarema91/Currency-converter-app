@@ -5,9 +5,10 @@ import { currencyAPI } from "../services/CurrencyService";
 
 export default function Selector() {
   const options = [] as any;
+  // <[{ value: string, label: string }]>
   const persistedCurrencyList = localStorage.getItem('currencyList') as string;
   const parsedcurrencyList = JSON.parse(persistedCurrencyList);
-  const [selectedOption, setSelectedOption] = useState(parsedcurrencyList || []) as any;
+  const [selectedOption, setSelectedOption] = useState(parsedcurrencyList || []);
 
   const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(selectedOption);
 
@@ -25,9 +26,9 @@ export default function Selector() {
   }, [currencyList])
 
   if (data && data.rates) {
-    const currency = Object.keys(data.rates) as any;
+    const currency = Object.keys(data.rates);
 
-    const value = currency.forEach(element => {
+    currency.forEach(element => {
       options.push({
         value: element,
         label: element,
