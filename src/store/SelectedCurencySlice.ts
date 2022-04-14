@@ -1,6 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ISelector } from "../models/ISelector";
 
@@ -15,9 +12,6 @@ interface CurrencyState {
   error: string;
   currencyList: Currency[];
 }
-
-// const persistedCurrencyList = localStorage.getItem('currencyList') as any;
-// const parsedcurrencyList = JSON.parse(persistedCurrencyList);
 
 const initialState: CurrencyState = {
   selector: [],
@@ -50,10 +44,4 @@ export const { add, remove } = selectorSlice.actions;
 
 export default selectorSlice.reducer;
 
-// export const {add, remove } = SelectedCurencySlice.actions;
 
-// const store = configureStore ({
-//     reducer: {
-//         currencyList1: SelectedCurencySlice.reducer,
-//     },
-// })

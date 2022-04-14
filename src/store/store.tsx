@@ -1,6 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
-/* eslint-disable no-shadow */
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
@@ -37,8 +34,6 @@ const store = configureStore({
     },
   }).concat(currencyAPI.middleware),
 
-  //  middleware: (getDefaultMiddleware) =>
-  //      getDefaultMiddleware().concat(currencyAPI.middleware)
 });
 export const persistor = persistStore(store);
 
