@@ -1,8 +1,8 @@
 export interface ICurrency {
   id: number;
-  success: boolean;
-  base: symbol;
-  date: number;
-  rates: {};
-  rate: number;
+  isSuccess: boolean;
+  base: string;
+  date: Date;
+  rates: {currency: string, rate: number};
 }
+

@@ -1,16 +1,33 @@
-
-
-
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../../styles/custom.scss";
 
 // @use '../../styles/custom.scss' as *;
 // @use '../components/mixins' as *;
 
+html {
+  height: 100%;
+}
+
+body {
+  background-image: linear-gradient($light-blue, $blue);
+}
 
 .navbar {
-  background-color: $light-blue;
-  // border-color: $dark-blue;
+  margin-top: 0.5em;
 
+  ul {
+    margin-right: auto;
+    // margin-bottom: 0.5em;
+  }
 
+  li {
+    margin-right: 1rem;
+  }
+}
+
+.input-group {
+  margin-right: 0.5rem;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { currencyAPI } from '../services/CurrencyService';
 import settings from '../settings';
 import Input from '../components/Input';
+// import "./CurrencyContainer.scss";
 
 const CurrencyContainer: React.FC<any> = ({ onChange }) => {
   const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({
@@ -11,6 +12,9 @@ const CurrencyContainer: React.FC<any> = ({ onChange }) => {
   const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(
     baseCurrency.code
   );
+
+  // console.log("data.rates", data.rates);
+
 
   const [amount, setAmount] = useState(1 as number);
 
@@ -34,29 +38,17 @@ const CurrencyContainer: React.FC<any> = ({ onChange }) => {
   };
 
   return (
-    <div>
-      <div
-        id="toolbar"
-        className="container"
-        style={{
-          display: 'contants',
-          paddingBlockStart: '1em',
-          paddingBlockEnd: '2.2em',
-        }}
-      >
-        <div
-          className=" d-flex justify-content-center "
-          style={{ flexWrap: 'inherit' }}
-        >
+    <>
+      <div id="toolbar" className="container-1">
+        <div className="input-panel">
           <Input
             onChange={handleSelectCurrency}
             value={baseCurrency.code}
           />
-
           <input
             type="number"
             min={1}
-            className="form-control"
+            className="input"
             aria-label="Text input with segmented dropdown button"
             value={amount}
             onChange={onChangeAmount}
@@ -67,13 +59,6 @@ const CurrencyContainer: React.FC<any> = ({ onChange }) => {
       {error && <h1>Error download...</h1>}
       <table
         className="table"
-        style={{
-          alignItems: 'flex-center',
-          paddingLeft: '2.2em',
-          alignContent: 'center',
-          margin: 'auto',
-          textAlign: 'center',
-        }}
         id="table"
       >
         <thead>
@@ -98,7 +83,7 @@ const CurrencyContainer: React.FC<any> = ({ onChange }) => {
               ))}
         </tbody>
       </table>
-    </div>
+    </>
   );
 };
 

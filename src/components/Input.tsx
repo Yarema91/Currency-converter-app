@@ -3,9 +3,16 @@ import settings from "../settings";
 
 function Input({ onChange, value }) {
   return (
-    <select className="form-select me-2" value={value} onChange={onChange}>
+    <select
+      className="input"
+      value={value}
+      onChange={onChange}
+    >
       {settings.currencyList.map((currency) => (
-        <option value={currency} key={currency}>
+        <option
+          value={currency}
+          key={currency}
+        >
           {currency}
         </option>
       ))}

@@ -1,0 +1,105 @@
+@import "./custom.scss";
+
+.row {
+  // background-color: brown;
+  box-sizing: border-box;
+  margin: auto;
+  padding: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .col-md-4 {
+    // background-color: yellow;
+    display: flex;
+    width: fit-content;
+    min-width: 500px;
+    height: inherit;
+    padding: 1.5em;
+    margin: auto;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    margin-top: 1em;
+    padding-top: 2.5em;
+    max-height: 29rem;
+    // overflow: scroll;
+  }
+}
+
+.table {
+  background-color: $light-blue;
+  border: 0.3em darkblue 5px;
+  border-radius: 5px;
+  align-content: center;
+  align-items: flex;
+  text-align: center;
+  margin: auto;
+  padding-left: 2.2em;
+  overflow: auto;
+  display: inline-table;
+  position: -1;
+
+  tbody {
+    text-align: center;
+  }
+}
+
+.container {
+  background-color: rgb(75, 198, 151);
+  display: contents;
+  padding-block-start: 1em;
+  padding-block-end: 2.2em;
+  margin: auto;
+}
+
+.input {
+  border-color: $gray-400;
+  width: 100%;
+  margin-right: 0.5em;
+  border-radius: 4.5px;
+  border: 0.09em solid $gray-400;
+  padding: 0.25rem 0.5rem;
+
+  // .input[type="text"]:focus {
+  //   background-color: rgb(146, 243, 204);
+  // }
+  input[type="text"]:focus {
+    background-color: rgb(146, 243, 204);
+  }
+}
+
+.input-panel {
+  // background-color: blue;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-content: center;
+  align-items: stretch;
+  flex-wrap: inherit;
+  // margin-bottom: 1em;
+  padding-bottom: 1.2em;
+}
+
+.date-picker {
+  // background-color: $blue;
+  border-radius: 4.5px;
+  border: 0.09em solid $gray-400;
+  width: auto;
+  margin-right: 0.5em;
+  padding: 0.25em;
+  margin-right: 0.5em;
+}
+
+.graph-line {
+  height: 37vw !important;
+  margin-left: 2.8em; //розтягування
+  margin-right: 2.8em;
+  display: contents;
+  align-items: center;
+  justify-content: center;
+}
+
+// .selector {
+//   background-color: rgb(255, 169, 65) !important;
+//   border-color: aqua;
+// }

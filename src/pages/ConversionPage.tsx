@@ -20,14 +20,12 @@ const ConversionPage = () => {
     }
   }, [history])
 
-  var date = new Date();
-  var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+  const date = new Date();
+  const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
     .toISOString()
     .split("T")[0];
 
-
   const onChangeAmount = (rate) => {
-
     setHistory([
       ...history,
       {
@@ -40,22 +38,12 @@ const ConversionPage = () => {
   }
 
   return (
-    <div className="row" style={{
-      boxSizing: "border-box",
-      margin: "auto",
-      padding: "2em",
-      display: "flex",
-      alignItems: "flex-center",
-      justifyContent: "center",
-    }}>
-      <Card className="col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em" }}>
+    <div className="row">
+      <Card className="col-md-4">
         <CurrencyContainer onChange={onChangeAmount} />
       </Card>
-
-      <Card className=" col-md-4 ms-2 me-2 mt-3" style={{ width: "fit-content", minWidth: "500px", padding: "1.5em" }}>
-        <table className="table table-borderless"
-          style={{ alignItems: "flex-center", padding: "2.2em", alignContent: "center", }}
-        >
+      <Card className="col-md-4">
+        <table className="table table-borderless" >
           <thead>
             <tr >
               <th >#</th>
@@ -64,8 +52,8 @@ const ConversionPage = () => {
               <th >Date</th>
             </tr>
           </thead>
-          <tbody style={{ textAlign: "center" }}>
-
+          <tbody
+          >
             {history.map((h) => (
               <tr key={h.id}>
                 <td>{h.id}</td>

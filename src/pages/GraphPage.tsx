@@ -15,8 +15,8 @@ import settings from '../settings';
 import DatePicker from "react-datepicker";
 import { Card } from 'react-bootstrap';
 import { currencyAPI } from '../services/CurrencyService';
-// import { KeyObject } from 'crypto';
-// import { selectorSlice } from '../store/SelectedCurencySlice';
+import { string } from 'prop-types';
+
 
 ChartJS.register(
   CategoryScale,
@@ -27,7 +27,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
 
 export const options = {
   responsive: true,
@@ -42,10 +41,9 @@ export const options = {
 };
 
 
-
-
 export default function GraphPage() {
 
+  // const [selectedCurrencyList, setSelectedCurrencyList] = useState([]) as any;
   const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
 
   const [startDate, setStartDate] = useState(new Date());  //view change date1
@@ -77,10 +75,21 @@ export default function GraphPage() {
   parsedCurrency.forEach(element => {
     selectedCurrencyList.push(element.value);
   });
+
+  // const arr = [];
+  // arr.push(element.value)
+  // parsedCurrency.forEach((element: any) => {
+
+
+  // setSelectedCurrencyList([
+  //   ...selectedCurrencyList,
+  //   element.value
+  // ]);
+  // }
+  // );
+
   // console.log('selectedCurrencyList', selectedCurrencyList);
   // }), [];
-
-
 
 
   if (dataG && dataG.rates) {
@@ -89,8 +98,6 @@ export default function GraphPage() {
 
     currencyData = Object.assign(currencyData, dataG)
     currencyData.render = true;
-
-
 
     selectedCurrencyList.forEach((currency, index) => {
       let chartItem = {
@@ -101,7 +108,6 @@ export default function GraphPage() {
       chartItem.label = currency;
 
       dates.forEach(date => {
-
         chartItem.label = currency;
         chartItem.data.push(currencyData.rates[date][currency])
       });
@@ -110,91 +116,47 @@ export default function GraphPage() {
     });
   }
 
-
   const handleSelectCurrency = (e) => {
     const selectValue = e.target.value;
     setBaseCurrency({ code: selectValue })
   }
 
   return (
-    <div className="row" style={{
-      boxSizing: "border-box",
-      margin: "auto",
-      padding: "2em",
-      display: "flex",
-      alignItems: "flex-center",
-      justifyContent: "center",
-    }}>
-
-      <div className="App">
-        {errorGraph ? (
-          <>Oh no, there was an error</>
-        ) : isLoadingGraph ? (
-          <h1>Loading...</h1>
-        ) : null}
-      </div>
-
-      <Card
-        className="col-md-4 ms-2 me-2 mt-3"
-        style={{
-          width: "fit-content",
-          minWidth: "500px",
-          padding: "1.5em",
-          margin: "auto"
-        }}
-      >
-        <div
-          id="toolbar"
-          className="container"
-          style={{
-            display: "contants",
-            paddingBlockEnd: "0.4em",
-          }}
-        >
-          <div
-            className="container"
-            style={{
-              display: "contants",
-              paddingBlockStart: "1em",
-            }}
-          >
-            <div
-              className=" d-flex justify-content-center "
-              style={{ flexWrap: "inherit" }}
-            >
-              <Input
-                onChange={handleSelectCurrency}
-                value={baseCurrency.code}
-              />
-              <DatePicker
-                className=" me-2 p-1 "
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-              />
-              <DatePicker
-                className=" me-2 p-1 mw-auto"
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-              />
-            </div>
-          </div>
+    <div className="row">
+      {errorGraph ? (<>Oh no, there was an error</>)
+        : isLoadingGraph
+          ? (<h1>Loading...</h1>)
+          : null
+      }
+      <Card className="col-md-4">
+        <div className="input-panel">
+          <Input
+            onChange={handleSelectCurrency}
+            value={baseCurrency.code}
+          />
+          <DatePicker
+            className="date-picker"
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
+          <DatePicker
+            className="date-picker"
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+          />
         </div>
       </Card>
       {isLoadingGraph && <h1 className='align-content-sm-center'>Loading date with graph...</h1>}
       {errorGraph && <h1>Error download date with graph...</h1>}
       <Line
-        style={{
-          width: "fit-content",
-          margin: "auto",
-          paddingLeft: "2em",
-          padding: "2em",
-          display: "flex",
-          alignItems: "flex-center",
-          justifyContent: "center"
-        }}
+        className='graph-line'
         options={options}
         data={chartData}
       />
     </div>
   )
 }
+// function setSelectedCurrencyList(arg0: any[]) {
+//   throw new Error('Function not implemented.');
+// }
+

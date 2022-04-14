@@ -17,7 +17,6 @@ const Header = () => {
 
 
   return (
-
     <nav className="navbar navbar-expand-lg navbar-light" >
       <div className="container-fluid">
         <button
@@ -30,11 +29,12 @@ const Header = () => {
           aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-
-        <div className="collapse navbar-collapse lg" id="navbarTogglerDemo03">
-
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item me-3">
+        <div
+          className="collapse navbar-collapse lg"
+          id="navbarTogglerDemo03"
+        >
+          <ul className="navbar-nav">
+            <li className="nav-item">
               <NavLink
                 className="nav-link"
                 exact to="/"
@@ -43,16 +43,16 @@ const Header = () => {
                 <i className="bi bi-cash-coin"></i> Conversion
               </NavLink>
             </li>
-            <li className="nav-item me-3">
+            <li className="nav-item">
               <NavLink
                 className="nav-link"
                 to="/history"
                 activeClassName="active"
               >
-                <i className="bi bi-journal-text "></i> History
+                <i className="bi bi-journal-text"></i> History
               </NavLink>
             </li>
-            <li className="nav-item me-3">
+            <li className="nav-item">
               <NavLink
                 className="nav-link"
                 to="/comparison"
@@ -61,7 +61,7 @@ const Header = () => {
                 <i className="bi bi-chevron-bar-contract"></i> Comparison
               </NavLink>
             </li>
-            <li className="nav-item me-3">
+            <li className="nav-item">
               <NavLink
                 className="nav-link"
                 to="/graph"
@@ -71,9 +71,7 @@ const Header = () => {
             </li>
           </ul>
           <div>
-            <div className="input-group me-2 currency-converter d--flex a--center j--spaceBetween" style={{ display: "flex" }} >
-              <Selector />
-            </div>
+            <Selector />
           </div>
         </div>
       </div>
