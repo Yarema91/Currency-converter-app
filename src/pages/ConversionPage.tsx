@@ -6,7 +6,7 @@ import { ICurrency } from "@src/models/ICurrency";
 
 
 const ConversionPage = () => {
-  const persistedHistory = localStorage.getItem('history') as any;
+  const persistedHistory = localStorage.getItem('history') as string;
   const parsedHistory = JSON.parse(persistedHistory);
   const [history, setHistory] = useState(parsedHistory || [])
 

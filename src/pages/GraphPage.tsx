@@ -46,13 +46,13 @@ export default function GraphPage() {
   // const [selectedCurrencyList, setSelectedCurrencyList] = useState([]) as any;
   const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({ code: settings.baseCurrency });
 
-  const [startDate, setStartDate] = useState(new Date());  //view change date1
+  const [startDate, setStartDate] = useState(new Date());
   const startDateForRecquest = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
 
   const [endDate, setEndDate] = useState(new Date());
   const endDateForRecquest = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`
 
-  const { data: dataG, error: errorGraph, isLoading: isLoadingGraph } = currencyAPI.useFetchGraphQuery<any>({ baseCurrency: baseCurrency.code, startDateGraph: startDateForRecquest, endDateGraph: endDateForRecquest });
+  const { data: dataG, error: errorGraph, isLoading: isLoadingGraph } = currencyAPI.useFetchGraphQuery({ baseCurrency: baseCurrency.code, startDateGraph: startDateForRecquest, endDateGraph: endDateForRecquest });
 
 
 
@@ -88,7 +88,6 @@ export default function GraphPage() {
   // }
   // );
 
-  // console.log('selectedCurrencyList', selectedCurrencyList);
   // }), [];
 
 
@@ -156,7 +155,3 @@ export default function GraphPage() {
     </div>
   )
 }
-// function setSelectedCurrencyList(arg0: any[]) {
-//   throw new Error('Function not implemented.');
-// }
-

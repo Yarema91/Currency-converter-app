@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { currencyAPI } from '../services/CurrencyService';
 import settings from '../settings';
 import Input from '../components/Input';
-// import "./CurrencyContainer.scss";
 
-const CurrencyContainer: React.FC<any> = ({ onChange }) => {
+const CurrencyContainer = ({ onChange }) => {
   const [baseCurrency, setBaseCurrency] = useState<{ code: string }>({
     code: settings.baseCurrency,
   });
@@ -12,9 +11,6 @@ const CurrencyContainer: React.FC<any> = ({ onChange }) => {
   const { data, error, isLoading } = currencyAPI.useFetchAllRatesQuery(
     baseCurrency.code
   );
-
-  // console.log("data.rates", data.rates);
-
 
   const [amount, setAmount] = useState(1 as number);
 

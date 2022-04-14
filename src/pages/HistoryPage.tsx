@@ -14,7 +14,7 @@ const HistoryPage = () => {
     const [startDate, setStartDate] = useState(new Date());
 
     const startDateForRecquest = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
-    const { data, error, isLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
+    const { data, error, isLoading } = currencyAPI.useFetchChangeDateQuery({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
     const [amount, setAmount] = useState(1 as number); //1
 
 

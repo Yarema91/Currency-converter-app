@@ -5,7 +5,6 @@ import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import settings from "../settings";
 import Input from "../components/Input";
-// import "@styles/styles.scss";
 
 
 const ComparisonPage = () => {
@@ -15,13 +14,12 @@ const ComparisonPage = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   const startDateForRecquest = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
-  const { data, error: errorStarDate, isLoading: isLoadingStarDate } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
+  const { data, error: errorStarDate, isLoading: isLoadingStarDate } = currencyAPI.useFetchChangeDateQuery({ baseCurrency: baseCurrency.code, changeDate: startDateForRecquest });
 
   const [endDate, setEndDate] = useState(new Date());
   const endDateForRecquest = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`
 
-  // console.log(endDateForRecquest);
-  const { data: dataEnd, error: endDateError, isLoading: endDateisLoading } = currencyAPI.useFetchChangeDateQuery<any>({ baseCurrency: baseCurrency.code, changeDate: endDateForRecquest });
+  const { data: dataEnd, error: endDateError, isLoading: endDateisLoading } = currencyAPI.useFetchChangeDateQuery({ baseCurrency: baseCurrency.code, changeDate: endDateForRecquest });
 
 
   const handleSelectCurrency = (e) => {
@@ -29,10 +27,6 @@ const ComparisonPage = () => {
     setBaseCurrency({ code: selectValue })
   }
 
-  const onChangeDate = (e) => {
-    let exchangeDate = e.target.value;
-    setStartDate(exchangeDate)
-  }
 
   let findTable;
   if (data && dataEnd) {
@@ -47,7 +41,6 @@ const ComparisonPage = () => {
 
   return (
     <div className="row">
-
       <Card className="col-md-4">
         <div className="input-panel">
           <Input
