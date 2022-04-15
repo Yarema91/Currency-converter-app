@@ -83,6 +83,7 @@ export default function GraphPage() {
 
 
 
+
   if (dataG && dataG.rates) {
     const dates = Object.keys(dataG.rates);
     chartData.labels = dates;

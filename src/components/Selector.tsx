@@ -50,3 +50,7 @@ export default function Selector() {
     </>
   );
 }
+
+// function push(arg0: { value: string; label: string; }): any {
+//   throw new Error("Function not implemented.");
+// }
