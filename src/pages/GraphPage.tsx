@@ -80,12 +80,8 @@ export default function GraphPage() {
 
   const [selectedCurrencyList, setSelectedCurrencyList] = useState(selectedArr || []) as any;
 
-  // useEffect(() => {
-  //   if (selectedArr !== selectedCurrencyList) {
-  //     setSelectedCurrencyList(selectedArr)
-  //   }
-  // }, []
-  // )
+
+
 
   if (dataG && dataG.rates) {
     const dates = Object.keys(dataG.rates);
